@@ -35,10 +35,6 @@ function setup() {
 
 function draw() {
     background("#000000");
-
-    drawCircle1();
-    drawCircle2();
-    drawCircle3();
 }
 
 function drawEllipse(x, y, w, h, r, g, b) {
@@ -47,28 +43,4 @@ function drawEllipse(x, y, w, h, r, g, b) {
     fill(r, g, b);
     ellipse(x, y, w, h);
     pop();
-}
-
-function drawCircle1(x, y, size, r, g, b) {
-    push;
-    noStroke();
-    fill(circle1.r, circle1.g, circle1.b);
-    ellipse(circle1.x, circle1.y, circle1.size);
-    pop;
-}
-
-function drawCircle2() {
-    push;
-    noStroke();
-    fill(circle2.r, circle2.g, circle2.b);
-    ellipse(circle2.x, circle2.y, circle2.size);
-    pop;
-}
-
-function drawCircle3() {
-    push;
-    noStroke();
-    fill(circle3.r, circle3.g, circle3.b);
-    ellipse(circle3.x, circle3.y, circle3.size);
-    pop;
 }
