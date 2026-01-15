@@ -27,6 +27,9 @@ const circle3 = {
 
 function setup() {
     createCanvas(640, 640);
+    drawEllipse(circle1.x, circle1.y, circle1.size, circle1.size, circle1.r, circle1.g, circle1.b);
+    drawEllipse(circle2.x, circle2.y, circle2.size, circle2.size, circle2.r, circle2.g, circle2.b);
+    drawEllipse(circle3.x, circle3.y, circle3.size, circle3.size, circle3.r, circle3.g, circle3.b);
 }
 
 
@@ -36,6 +39,14 @@ function draw() {
     drawCircle1();
     drawCircle2();
     drawCircle3();
+}
+
+function drawEllipse(x, y, w, h, r, g, b) {
+    push();
+    noStroke();
+    fill(r, g, b);
+    ellipse(x, y, w, h);
+    pop();
 }
 
 function drawCircle1(x, y, size, r, g, b) {
