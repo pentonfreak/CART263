@@ -1,19 +1,28 @@
 const circle1 = {
     x: 100,
     y: 100,
-    size: 30
+    size: 30,
+    r: 255,
+    g: 0,
+    b: 0
 }
 
 const circle2 = {
     x: 150,
     y: 150,
-    size: 50
+    size: 50,
+    r: 0,
+    g: 255,
+    b: 0
 }
 
 const circle3 = {
     x: 200,
     y: 200,
-    size: 70
+    size: 70,
+    r: 0,
+    g: 0,
+    b: 255
 }
 
 function setup() {
@@ -29,10 +38,10 @@ function draw() {
     drawCircle3();
 }
 
-function drawCircle1() {
+function drawCircle1(x, y, size, r, g, b) {
     push;
     noStroke();
-    fill("#ff6c6c");
+    fill(circle1.r, circle1.g, circle1.b);
     ellipse(circle1.x, circle1.y, circle1.size);
     pop;
 }
@@ -40,7 +49,7 @@ function drawCircle1() {
 function drawCircle2() {
     push;
     noStroke();
-    fill("#ff0000");
+    fill(circle2.r, circle2.g, circle2.b);
     ellipse(circle2.x, circle2.y, circle2.size);
     pop;
 }
@@ -48,7 +57,7 @@ function drawCircle2() {
 function drawCircle3() {
     push;
     noStroke();
-    fill("#8d0000");
+    fill(circle3.r, circle3.g, circle3.b);
     ellipse(circle3.x, circle3.y, circle3.size);
     pop;
 }

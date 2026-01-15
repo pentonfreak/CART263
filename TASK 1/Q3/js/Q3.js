@@ -1,16 +1,19 @@
-const circle1 = {
+let frameRate = 30;
+
+const stuff1 = {
     x: 100,
     y: 100,
-    size: 30
+    size: 30,
+    speed: 5
 }
 
-const circle2 = {
+const stuff2 = {
     x: 150,
     y: 150,
     size: 50
 }
 
-const circle3 = {
+const stuff3 = {
     x: 200,
     y: 200,
     size: 70
@@ -24,31 +27,34 @@ function setup() {
 function draw() {
     background("#000000");
 
-    drawCircle1();
-    drawCircle2();
-    drawCircle3();
+    drawStuff1();
+
+    drawStuff2();
+
+    drawStuff3();
 }
 
-function drawCircle1() {
+function drawStuff1() {
     push;
     noStroke();
     fill("#ff6c6c");
-    ellipse(circle1.x, circle1.y, circle1.size);
+    rect(stuff1.x, stuff1.y, stuff1.size);
     pop;
 }
 
-function drawCircle2() {
+function drawStuff2() {
     push;
     noStroke();
     fill("#ff0000");
-    ellipse(circle2.x, circle2.y, circle2.size);
+    rect(stuff2.x, stuff2.y, stuff2.size);
     pop;
 }
 
-function drawCircle3() {
+function drawStuff3() {
     push;
     noStroke();
     fill("#8d0000");
-    ellipse(circle3.x, circle3.y, circle3.size);
+    rect(stuff3.x, stuff3.y, stuff3.size);
     pop;
 }
+
