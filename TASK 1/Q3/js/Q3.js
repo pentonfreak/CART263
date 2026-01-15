@@ -34,6 +34,10 @@ function draw() {
     drawStuff3();
 }
 
+function mouseClicked() {
+    stuff1.x += random(0,5);
+}
+
 function drawStuff1() {
     push;
     noStroke();
