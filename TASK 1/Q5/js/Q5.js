@@ -11,12 +11,6 @@ const button1 = {
     state: "still"
 }
 
-const circle = {
-    x: 300,
-    y: 300,
-    r: 100,
-}
-
 function setup() {
     createCanvas(600, 600);
 };
