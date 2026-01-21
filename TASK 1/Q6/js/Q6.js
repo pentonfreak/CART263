@@ -23,8 +23,6 @@ function draw() {
     }
 }
 
-
-
 function drawText() {
     fill(255);
     textSize(28);
