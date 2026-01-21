@@ -15,9 +15,9 @@ const counter = 0;
 const circle = {
     x: 300,
     y: 300,
-    d: 0,
     alpha: 100,
 }
+let r = 50;
 
 function setup() {
     createCanvas(600, 600);
@@ -31,7 +31,12 @@ function draw() {
 
     changeColorOnHover();
 
-    drawCircleOnClick();
+    drawCircle();
+
+   while (r >= 50) {
+    ellipse(circle.x, circle.y, r);
+    r = r + 50;
+    }
 }
 
 function drawButton1() {
@@ -42,7 +47,7 @@ function drawButton1() {
 
     push();
     noStroke();
-    fill("#FF0000");
+    fill("#ff5900ff");
     rect(button1.x, button1.y, 50, 50);
     pop();
 }
@@ -79,21 +84,26 @@ function changeColorOnHover() {
     }
 }
 
-function drawCircleOnClick() {
-    if (button1.state === "Pressed") {
-        circle.d = circle.d + counter;
-    }
+// Whenever the mouse is clicked inside the orange square increment the counter variable by 1
 
-    if (button2.state === "Pressed") {
-        circle.d = circle.d - counter;
-    }
+// function mousePressed() {
+//     if (mouseX > button1.x && mouseX < button1.x + 50 && mouseY > button1.y && mouseY < button1.y + 50) {
+//         counter += 50;
+//         console.log(counter);
+//     }
+//     if (mouseX > button2.x && mouseX < button2.x + 50 && mouseY > button2.y && mouseY < button2.y + 50) {
+//         counter -= 50;
+//         console.log(counter);
+//     }
+// };
 
+function drawCircle() {
+    if (mouseIsPressed) {
     push();
     noStroke();
     fill(255, 255, 255, circle.alpha);
-    ellipse(circle.x, circle.y, circle.d);
+    ellipse(circle.x, circle.y, circle.r);
     pop();
+    }
 }
-
-    
 
