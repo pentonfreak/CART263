@@ -1,6 +1,6 @@
 let counter = 0;
 let radius = 40; // base size for thef irst ellipse
-let ellipseAlpha = 20; // starting alpha for the first ellipse
+let ellipseAlpha = 10; // starting alpha for the first ellipse
 
 const button1 = {
     w: 100,
@@ -29,7 +29,7 @@ function draw() {
     changeColorOnHover();
 
     // Do not draw anything if counter is out of range
-    if (counter < 1 || counter > 10) {
+    if (counter <= 1 || counter >= 10) {
         return;
     }
 
@@ -40,12 +40,14 @@ function draw() {
     noStroke();
 
     while (i < counter) {
+        strokeWeight(2);
+        stroke(255);
         fill(255, currentAlpha);
         ellipse(width / 2, height / 2, currentRadius, currentRadius);
 
         // each next circle slightly larger and more opaque
-        currentRadius += 20;
-        currentAlpha += 20;
+        currentRadius += 50;
+        currentAlpha += 10;
 
         i++;
     }
