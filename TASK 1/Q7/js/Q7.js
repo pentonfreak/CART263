@@ -1,4 +1,4 @@
-  // Declare the variable xCoordinates and assign it an array of numbers.
+
 let xCoordinates = [40, 120, 200, 280, 360, 440, 520, 600, 680, 760];
 let yCoordinates = [40, 120, 200, 280, 360, 440, 520, 600, 680, 760];
 
