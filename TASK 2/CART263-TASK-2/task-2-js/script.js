@@ -206,11 +206,24 @@ a background using that color.
 passing the current allPTagsThree element as the parent with each iteration.*/
 /***CODE */
 
-
 /***EXPLANATION::
  * 
  * 
  */
+let allPTagsThree = document.getElementsByTagName("p");
+
+function customCreateElement(parent){
+    let newParagraph = document.createElement("p");
+    newParagraph.textContent = "using create Element";
+    newParagraph.style.backgroundColor = "green";
+    newParagraph.style.color = "white";
+    parent.appendChild(newParagraph);
+}
+for (let i = 0; i < allPTagsThree.length; i++){
+    customCreateElement(allPTagsThree[i]);
+}
+console.log(allPTagsThree);
+
 
 /*************************************** */
 /* 2: GRID OF BOXES */
