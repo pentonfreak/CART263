@@ -11,10 +11,9 @@ console.log("we are a go!")
  * console.log(paragraphs);
  */
 /***OUTPUT: 
- * 
+ * HTMLCollection(9) [p#1, p#2.img-descript, p#3.img-descript, p#4.img-descript, p#5.img-descript, p#6.img-descript, p#7.img-descript, p#8.img-descript, p#9.img-descript]
  */
-// let paragraphs = document.getElementsByTagName("p");
-// console.log(paragraphs);
+
 
 /*************************************** */
 /* 2: only the first paragraph element */
@@ -23,10 +22,10 @@ console.log("we are a go!")
  * console.log(firstParagraph);
  */
 /***OUTPUT: 
- * 
+ * <p id="1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias perspiciatis blanditiis, et laborum praesentium earum. Enim facere, quia commodi voluptate, quis asperiores, pariatur ducimus officiis non quasi officia sit veniam!.
+ * </p>
  */
-// let firstParagraph = document.querySelector("p");
-// console.log(firstParagraph);
+
 
 /*************************************** */
 /* 3: all elements with the class inner-container */
@@ -35,10 +34,9 @@ console.log("we are a go!")
  * console.log(innerContainers);
  */
 /***OUTPUT: 
- * 
+ * HTMLCollection(8) [div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container]
  */
-// let innerContainers = document.getElementsByClassName("inner-container");
-// console.log(innerContainers);
+
 
 /*************************************** */
 /* 4: the last image element inside the element that has the class img-container */
@@ -48,11 +46,9 @@ console.log("we are a go!")
  * console.log(lastImageElement);
  */
 /***OUTPUT: 
- * 
+ * <img class="img-image" src="task-2-images/seventeen.png">
  */
-// let lastImageElement = document.querySelectorAll(".img-container img");
-// lastImageElement = lastImageElement[lastImageElement.length - 1];
-// console.log(lastImageElement);
+
 
 /*************************************** */
 /* 5A: all h2 elements */
@@ -65,12 +61,11 @@ console.log("we are a go!")
  * console.log(allH2Elements[0].textContent);
  */
 /***OUTPUT: 
- * 
+ * HTMLCollection [h2]
+ * 1
+ * The header of this fancy page
  */
-// let allH2Elements = document.getElementsByTagName("h2");
-// console.log(allH2Elements);
-// console.log(allH2Elements.length);
-// console.log(allH2Elements[0].textContent);
+
 
 /*************************************** */
 /* 6: the element with id name parent */
@@ -79,10 +74,9 @@ console.log("we are a go!")
  * console.log(parentElement);
  */
 /***OUTPUT: 
- * 
+ * <section id="parent">…</section>
  */
-// let parentElement = document.getElementById("parent");
-// console.log(parentElement);
+
 
 /*************************************** */
 /*** END PART ONE ACCESS */ 
@@ -100,9 +94,7 @@ console.log("we are a go!")
 /***OUTPUT: 
  * <p id="1">Khuong, Nguyen Huynh Bao - January 27th 2026</p>
  */
-// let firstParagraph = document.querySelector("p");
-// firstParagraph.textContent = "Khuong, Nguyen Huynh Bao - January 27th 2026";
-// console.log(firstParagraph);
+
 
 /*************************************** */
 /* 2: Select all elements in the HTML that have the class name content-container
@@ -114,12 +106,10 @@ console.log("we are a go!")
  * console.log(contentContainers);
  */
 /***OUTPUT: 
- * 
+ * HTMLCollection(8) [div.content-container, div.content-container, div.content-container, div.content-container, div.content-container, div.content-container, div.content-container, div.content-container]
  */
-// let contentContainers = document.getElementsByClassName("content-container");
-// contentContainers[0].style.backgroundColor = "orange";
-// contentContainers[1].style.backgroundColor = "purple";
-// console.log(contentContainers);
+
+
 /*************************************** */
 /* 3: Change the src element of the first image element on the page to be ...
 /***CODE
@@ -128,11 +118,10 @@ console.log("we are a go!")
  * console.log(firstImage);
  */
 /***OUTPUT: 
- * 
+ * <img src="task-2-images/seven.png">
  */
-// let firstImage = document.querySelector("img");
-// firstImage.src = "task-2-images/seven.png";
-// console.log(firstImage);
+
+
 /*************************************** */
 /* 4: Select the third paragraph element on the page and 
 replace the content (within the paragraph) to be an h2 element which contains the text `TEST 123`
@@ -142,11 +131,12 @@ replace the content (within the paragraph) to be an h2 element which contains th
  * console.log(thirdParagraph);
  */
 /***OUTPUT: 
- * 
+ * <p id="3" class="img-descript">
+ * <h2>TEST 123</h2>
+ * </p>
  */
-// let thirdParagraph = document.querySelectorAll("p")[2];
-// thirdParagraph.innerHTML = "<h2>TEST 123</h2>";
-// console.log(thirdParagraph);
+
+
 /*************************************** */
 /* 5: Select the fourth paragraph element on the page and 
 add to the existing content an h2 element containing the text `TEST 123`
@@ -156,11 +146,13 @@ add to the existing content an h2 element containing the text `TEST 123`
  * console.log(fourthParagraph);
  */
 /***OUTPUT: 
- * 
+ * <p id="4" class="img-descript">
+ * Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias perspiciatis blanditiis, et laborum praesentium earum. Enim facere, quia commodi voluptate, quis asperiores, pariatur ducimus officiis non quasi officia sit veniam!
+ * <h2>TEST 123</h2>
+ * </p>
  */
-// let fourthParagraph = document.querySelectorAll("p")[3];
-// fourthParagraph.innerHTML += "<h2>TEST 123</h2>";
-// console.log(fourthParagraph);
+
+
 /*************************************** */
 /* 6: Select the fifth paragraph element on the page and add to the existing content 
 an img element that holds `one.png`, and add the class newStyle to said paragraph element.
@@ -171,12 +163,12 @@ an img element that holds `one.png`, and add the class newStyle to said paragrap
  * console.log(fifthParagraph);
  */
 /***OUTPUT: 
- * 
+ * <p id="5" class="img-descript newStyle">
+ * Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias perspiciatis blanditiis, et laborum praesentium earum. Enim facere, quia commodi voluptate, quis asperiores, pariatur ducimus officiis non quasi officia sit veniam!
+ * <img src="task-2-images/one.png">
+ * </p>
  */
-// let fifthParagraph = document.querySelectorAll("p")[4];
-// fifthParagraph.innerHTML += '<img src="task-2-images/one.png" />';
-// fifthParagraph.classList.add("newStyle");
-// console.log(fifthParagraph);
+
 
 /*************************************** */
 /* 7: Add the following array variable: let colors = ['red','blue','green','orange'];, 
@@ -191,14 +183,15 @@ a background using that color.
  * for (let i = 0; i < colors.length; i++){
  */
 /***OUTPUT: 
- * 
+ * HTMLCollection(8) [div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container]
  */
-// let colors = ['red','blue','green','orange'];
-// let innerContainers = document.getElementsByClassName("inner-container");
-// for (let i = 0; i < colors.length; i++){
-//     innerContainers[i].style.backgroundColor = colors[i];
-// }
-// console.log(innerContainers);
+let colors = ['red','blue','green','orange'];
+let innerContainers = document.getElementsByClassName("inner-container");
+for (let i = 0; i < colors.length; i++){
+    innerContainers[i].style.backgroundColor = colors[i];
+}
+console.log(innerContainers);
+
 
 /*************************************** */
 /*** END PART TWO MODIFY */ 
