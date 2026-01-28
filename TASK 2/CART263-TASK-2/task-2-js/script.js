@@ -6,10 +6,10 @@ console.log("we are a go!")
 /*** ALL ANWSERS TO BE ADDED IN THE ALLOCATED SPACE */
 /*** START PART ONE ACCESS */ 
 /* 1: all paragraph elements */
-/***CODE
- * let paragraphs = document.getElementsByTagName("p");
- * console.log(paragraphs);
- */
+/***CODE */
+// let paragraphs = document.getElementsByTagName("p");
+// console.log(paragraphs);
+ 
 /***OUTPUT: 
  * HTMLCollection(9) [p#1, p#2.img-descript, p#3.img-descript, p#4.img-descript, p#5.img-descript, p#6.img-descript, p#7.img-descript, p#8.img-descript, p#9.img-descript]
  */
@@ -17,10 +17,10 @@ console.log("we are a go!")
 
 /*************************************** */
 /* 2: only the first paragraph element */
-/***CODE
- * let firstParagraph = document.querySelector("p");
- * console.log(firstParagraph);
- */
+/***CODE  */
+// let firstParagraph = document.querySelector("p");
+// console.log(firstParagraph);
+
 /***OUTPUT: 
  * <p id="1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias perspiciatis blanditiis, et laborum praesentium earum. Enim facere, quia commodi voluptate, quis asperiores, pariatur ducimus officiis non quasi officia sit veniam!.
  * </p>
@@ -29,10 +29,10 @@ console.log("we are a go!")
 
 /*************************************** */
 /* 3: all elements with the class inner-container */
-/***CODE
- * let innerContainers = document.getElementsByClassName("inner-container"); 
- * console.log(innerContainers);
- */
+// /***CODE 
+// let innerContainers = document.getElementsByClassName("inner-container"); 
+// console.log(innerContainers);
+
 /***OUTPUT: 
  * HTMLCollection(8) [div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container]
  */
@@ -40,11 +40,11 @@ console.log("we are a go!")
 
 /*************************************** */
 /* 4: the last image element inside the element that has the class img-container */
-/***CODE
- * let lastImageElement = document.querySelectorAll(".img-container img");
- * lastImageElement = lastImageElement[lastImageElement.length - 1];
- * console.log(lastImageElement);
- */
+/***CODE  */
+// let lastImageElement = document.querySelectorAll(".img-container img");
+// lastImageElement = lastImageElement[lastImageElement.length - 1];
+// console.log(lastImageElement);
+
 /***OUTPUT: 
  * <img class="img-image" src="task-2-images/seventeen.png">
  */
@@ -54,12 +54,12 @@ console.log("we are a go!")
 /* 5A: all h2 elements */
 /* 5B: length of the list in 5A */
 /* 5C: the text content of the first element in the list from 5A */
-/***CODE
- * let allH2Elements = document.getElementsByTagName("h2");
- * console.log(allH2Elements);
- * console.log(allH2Elements.length);
- * console.log(allH2Elements[0].textContent);
- */
+/***CODE  */
+// let allH2Elements = document.getElementsByTagName("h2");
+// console.log(allH2Elements);
+// console.log(allH2Elements.length);
+// console.log(allH2Elements[0].textContent);
+
 /***OUTPUT: 
  * HTMLCollection [h2]
  * 1
@@ -69,10 +69,10 @@ console.log("we are a go!")
 
 /*************************************** */
 /* 6: the element with id name parent */
-/***CODE
- * let parentElement = document.getElementById("parent");
- * console.log(parentElement);
- */
+/***CODE  */
+// let parentElement = document.getElementById("parent");
+// console.log(parentElement);
+
 /***OUTPUT: 
  * <section id="parent">…</section>
  */
@@ -86,11 +86,11 @@ console.log("we are a go!")
 /*** START PART TWO MODIFY */ 
 /*************************************** */
 /* 1: Select the first paragraph and replace the text within the paragraph... */
-/***CODE
- * let firstParagraph = document.querySelector("p");
- * firstParagraph.textContent = "Khuong, Nguyen Huynh Bao - January 27th 2026";
- * console.log(firstParagraph);
- */
+/***CODE  */
+// firstParagraph = document.querySelector("p");
+// firstParagraph.textContent = "Khuong, Nguyen Huynh Bao - January 27th 2026";
+// console.log(firstParagraph);
+
 /***OUTPUT: 
  * <p id="1">Khuong, Nguyen Huynh Bao - January 27th 2026</p>
  */
@@ -99,12 +99,12 @@ console.log("we are a go!")
 /*************************************** */
 /* 2: Select all elements in the HTML that have the class name content-container
  and change the background color ... of first and second ...*/
-/***CODE
- * let contentContainers = document.getElementsByClassName("content-container");
- * contentContainers[0].style.backgroundColor = "lightgrey";
- * contentContainers[1].style.backgroundColor = "lightblue";
- * console.log(contentContainers);
- */
+/***CODE  */
+// let contentContainers = document.getElementsByClassName("content-container");
+// contentContainers[0].style.backgroundColor = "orange";
+// contentContainers[1].style.backgroundColor = "purple";
+// console.log(contentContainers);
+
 /***OUTPUT: 
  * HTMLCollection(8) [div.content-container, div.content-container, div.content-container, div.content-container, div.content-container, div.content-container, div.content-container, div.content-container]
  */
@@ -112,11 +112,11 @@ console.log("we are a go!")
 
 /*************************************** */
 /* 3: Change the src element of the first image element on the page to be ...
-/***CODE
- * let firstImage = document.querySelector("img");
- * firstImage.src = "task-2-images/seven.png";
- * console.log(firstImage);
- */
+/***CODE  */
+// let firstImage = document.querySelector("img");
+// firstImage.src = "task-2-images/seven.png";
+// console.log(firstImage);
+
 /***OUTPUT: 
  * <img src="task-2-images/seven.png">
  */
@@ -125,11 +125,11 @@ console.log("we are a go!")
 /*************************************** */
 /* 4: Select the third paragraph element on the page and 
 replace the content (within the paragraph) to be an h2 element which contains the text `TEST 123`
-/***CODE
- * let thirdParagraph = document.querySelectorAll("p")[2];
- * thirdParagraph.innerHTML = "<h2>TEST 123</h2>";
- * console.log(thirdParagraph);
- */
+/***CODE  */
+// let thirdParagraph = document.querySelectorAll("p")[2];
+// thirdParagraph.innerHTML = "<h2>TEST 123</h2>";
+// console.log(thirdParagraph);
+
 /***OUTPUT: 
  * <p id="3" class="img-descript">
  * <h2>TEST 123</h2>
@@ -140,11 +140,11 @@ replace the content (within the paragraph) to be an h2 element which contains th
 /*************************************** */
 /* 5: Select the fourth paragraph element on the page and 
 add to the existing content an h2 element containing the text `TEST 123`
-/***CODE
- * let fourthParagraph = document.querySelectorAll("p")[3];
- * fourthParagraph.innerHTML += "<h2>TEST 123</h2>";
- * console.log(fourthParagraph);
- */
+/***CODE  */
+// let fourthParagraph = document.querySelectorAll("p")[3];
+// fourthParagraph.innerHTML += "<h2>TEST 123</h2>";
+// console.log(fourthParagraph);
+
 /***OUTPUT: 
  * <p id="4" class="img-descript">
  * Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias perspiciatis blanditiis, et laborum praesentium earum. Enim facere, quia commodi voluptate, quis asperiores, pariatur ducimus officiis non quasi officia sit veniam!
@@ -156,12 +156,12 @@ add to the existing content an h2 element containing the text `TEST 123`
 /*************************************** */
 /* 6: Select the fifth paragraph element on the page and add to the existing content 
 an img element that holds `one.png`, and add the class newStyle to said paragraph element.
-/***CODE
- * let fifthParagraph = document.querySelectorAll("p")[4];
- * fifthParagraph.innerHTML += '<img src="task-2-images/one.png" />';
- * fifthParagraph.classList.add("newStyle");
- * console.log(fifthParagraph);
- */
+/***CODE  */
+// let fifthParagraph = document.querySelectorAll("p")[4];
+// fifthParagraph.innerHTML += '<img src="task-2-images/one.png" />';
+// fifthParagraph.classList.add("newStyle");
+// console.log(fifthParagraph);
+
 /***OUTPUT: 
  * <p id="5" class="img-descript newStyle">
  * Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias perspiciatis blanditiis, et laborum praesentium earum. Enim facere, quia commodi voluptate, quis asperiores, pariatur ducimus officiis non quasi officia sit veniam!
@@ -177,11 +177,14 @@ Next, iterate over the colors array, and for each color:
 assign the element from innerContainers variable with the same index 
 (i.e. colors[0] should be allocated to the first innerContainers element, colors[1] to the second, etc ...) 
 a background using that color.
-/***CODE
- * let colors = ['red','blue','green','orange'];
- * let innerContainers = document.getElementsByClassName("inner-container");
- * for (let i = 0; i < colors.length; i++){
- */
+/***CODE  */
+// let colors = ['red','blue','green','orange'];
+// let innerContainersColors = document.getElementsByClassName("inner-container");
+// for (let i = 0; i < colors.length; i++){
+//     innerContainersColors[i].style.backgroundColor = colors[i];
+// }
+// console.log(innerContainersColors);
+
 /***OUTPUT: 
  * HTMLCollection(8) [div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container]
  */
@@ -205,23 +208,26 @@ a background using that color.
 /* 1H: Iterate through the allPTagsThree array and call customCreateElement(), 
 passing the current allPTagsThree element as the parent with each iteration.*/
 /***CODE */
+// let allPTagsThree = document.getElementsByTagName("p");
+
+// function customCreateElement(parent){
+//     //Body
+//     let newParagraph = document.createElement("p");
+//     newParagraph.textContent = "using create Element";
+//     newParagraph.style.background = "green";
+//     newParagraph.style.color = "white";
+//     parent.appendChild(newParagraph);
+// }
+// // for (let pTag of allPTagsThree){
+// // }
+// for (let i = 0; i < allPTagsThree.length; i++){
+//     customCreateElement(allPTagsThree[i]);
+// }
 
 /***EXPLANATION::
  * 
  * 
  */
-let allPTagsThree = document.getElementsByTagName("p");
-function customCreateElement(parent){
-    let newParagraph = document.createElement("p");
-    newParagraph.textContent = "using create Element";
-    newParagraph.style.backgroundColor = "green";
-    newParagraph.style.color = "white";
-    parent.appendChild(newParagraph);
-}
-for (let i = 0; i < allPTagsThree.length; i++){
-    customCreateElement(allPTagsThree[i]);
-}
-console.log(allPTagsThree);
 
 
 /*************************************** */
@@ -245,6 +251,33 @@ console.log(allPTagsThree);
     otherwise lat it have the content `ODD`.*/
 
 /***CODE */
+function customNewBoxCreate(parent){
+    //Body
+     let newDiv = document.createElement("div")
+        newDiv.classList.add("testDiv");
+        parent.appendChild(newDiv);
+
+        return newDiv;
+}
+
+let newGrid = document.querySelector("#new-grid");
+
+    for (let x = 0; x < 10; x++){
+        for (let y = 0; y < 10; y++){
+            let returnedDiv = customNewBoxCreate(newGrid);
+            if (x % 2 === 0){
+                returnedDiv.style.background = "white";
+            }
+            else {
+                returnedDiv.style.background = "purple";
+            }
+            returnedDiv.style.left = (x * 46.5) + "px";
+            returnedDiv.style.top = (y * 46.5) + "px";
+        }
+    }
+
+
+
 
 
 /***EXPLANATION::
@@ -267,7 +300,25 @@ console.log(allPTagsThree);
     when dividing by three. */
 
 /***CODE */
-
+for (let x = 0; x < 10; x++){
+    for (let y = 0; y < 10; y++){
+        let newGridThree = document.querySelector("#new-grid-three");
+        let returnedDiv = customNewBoxCreate(newGridThree);
+        let remainder = x % 3;
+        if (remainder === 0){
+            returnedDiv.style.background = "red";
+        }
+        else if (remainder === 1){
+            returnedDiv.style.background = "orange";
+        }
+        else {
+            returnedDiv.style.background = "yellow";
+        }
+        returnedDiv.style.left = (x * 46.5) + "px";
+        returnedDiv.style.top = (y * 46.5) + "px";
+        returnedDiv.textContent = remainder;
+    }
+}
 
 /***EXPLANATION::
  * 
