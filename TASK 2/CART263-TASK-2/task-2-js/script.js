@@ -185,12 +185,6 @@ a background using that color.
 /***OUTPUT: 
  * HTMLCollection(8) [div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container]
  */
-let colors = ['red','blue','green','orange'];
-let innerContainers = document.getElementsByClassName("inner-container");
-for (let i = 0; i < colors.length; i++){
-    innerContainers[i].style.backgroundColor = colors[i];
-}
-console.log(innerContainers);
 
 
 /*************************************** */
