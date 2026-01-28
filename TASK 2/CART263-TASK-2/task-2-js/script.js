@@ -211,7 +211,6 @@ passing the current allPTagsThree element as the parent with each iteration.*/
  * 
  */
 let allPTagsThree = document.getElementsByTagName("p");
-
 function customCreateElement(parent){
     let newParagraph = document.createElement("p");
     newParagraph.textContent = "using create Element";
