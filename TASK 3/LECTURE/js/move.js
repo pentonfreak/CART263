@@ -20,7 +20,7 @@ window.onload = function(){
         let offsetX = eventObj.clientX - rect.x;
         let offsetY = eventObj.clientY - rect.y;
 
-        this.innerHTML =  'x: $(offsetX), y: $(offsetY)'; // Display mouse coordinates
+        // this.innerHTML =  'x: $(offsetX), y: $(offsetY)'; // Display mouse coordinates
 
         pointDiv.style.top = `$(offsetY)px`;
         pointDiv.style.left = `$(offsetX)px`;
