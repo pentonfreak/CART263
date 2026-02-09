@@ -1,62 +1,45 @@
-const stage = document.getElementById("stage");
+const grid = document.getElementById("grid");
 
-// main dot
-const dot = document.createElement("div");
-dot.className = "dot";
-stage.appendChild(dot);
+// characters to choose from
+// const patterns = ["+", "-", "*", "•", "×", "o"];
 
-// dot position
-let x = window.innerWidth / 2;
-let y = window.innerHeight / 2;
+// const patterns = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
-// mouse state
-let mouse = {
-  x: 0,
-  y: 0,
-  active: false
-};
+// const patterns = ["\u25A0", "\u25A1", "\u25A2", "\u25A3", "\u25A4", "\u25A5"];
 
-// hover only
-stage.addEventListener("mouseover", () => {
-  mouse.active = true;
-});
+const patterns = ["0", "1"]
 
 
-stage.addEventListener("mouseout", () => {
-  mouse.active = false;
-});
 
 
-stage.addEventListener("mousemove", (e) => {
-  const rect = stage.getBoundingClientRect();
-  mouse.x = e.clientX - rect.left;
-  mouse.y = e.clientY - rect.top;
-});
+// let sampleColors = ["#FF6B6B", "#6BCB77", "#4D96FF", "#FFD93D", "#FF6F91", "#845EC2"];
 
-// animation loop
-function animate() {
-  requestAnimationFrame(animate);
+let sampleColors = ["#02ff17", "#00b418"];
 
-  if (mouse.active) {
-    // move dot slowly toward mouse
-    x += (mouse.x - x) * 0.1;
-    y += (mouse.y - y) * 0.1;
+// create grid
+for (let i = 0; i < 50; i++) {
+  for (let j = 0; j < 50; j++) {
+  const cell = document.createElement("div");
+  cell.className = "cell";
+  cell.textContent = patterns[Math.floor(Math.random() * patterns.length)];
+  
+  // random color as mouse hovers
+  cell.addEventListener("mouseover", () => {
+    const randomColor = sampleColors[Math.floor(Math.random() * sampleColors.length)];
+    cell.style.color = randomColor;
+  });
 
-    // leave a trace
-    const trace = document.createElement("div");
-    trace.className = "trace";
-    trace.style.left = x + "px";
-    trace.style.top = y + "px";
-    stage.appendChild(trace);
+  // mouseover interaction
+  cell.addEventListener("mouseover", () => {
+    cell.classList.add("active");
 
-    // remove after animation ends
+    // remove effect after a moment
     setTimeout(() => {
-      trace.remove();
-    }, 2000);
+      cell.classList.remove("active");
+    }, 600);
+  });
+
+  grid.appendChild(cell);
   }
-
-  dot.style.left = x + "px";
-  dot.style.top = y + "px";
+ 
 }
-
-animate();
