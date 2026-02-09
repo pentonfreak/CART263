@@ -1,6 +1,9 @@
 const grid = document.getElementById("grid");
 
-// characters to choose from
+/**
+ * Pattern options:
+ */
+
 // const patterns = ["+", "-", "*", "•", "×", "o"];
 
 // const patterns = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
@@ -10,13 +13,17 @@ const grid = document.getElementById("grid");
 const patterns = ["0", "1"]
 
 
-
+/**
+ * Color options:
+ */
 
 // let sampleColors = ["#FF6B6B", "#6BCB77", "#4D96FF", "#FFD93D", "#FF6F91", "#845EC2"];
 
 let sampleColors = ["#02ff17", "#00b418"];
 
-// create grid
+/**
+ * Create grid
+ */
 for (let i = 0; i < 50; i++) {
   for (let j = 0; j < 50; j++) {
   const cell = document.createElement("div");
