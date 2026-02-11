@@ -6,7 +6,6 @@ const numberOfCards = [1,2,3,4,5,6,7,8,9,10,"J","Q","K","A"];
 let current = 0;
 let cardColor = ["#ff0000", "#000000"];
 
-
 /**
  * Space bar interaction to cycle through cards
 */
