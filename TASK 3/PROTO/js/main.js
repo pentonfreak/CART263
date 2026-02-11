@@ -21,11 +21,12 @@ let sampleColors = ["#FF6B6B", "#6BCB77", "#4D96FF", "#FFD93D", "#FF6F91", "#845
 
 // let sampleColors = ["#02ff17", "#00b418"];
 
+let boudingBoxParent = grid.getBoundingClientRect();
 /**
  * Create grid
  */
-for (let i = 0; i < 50; i++) {
-  for (let j = 0; j < 50; j++) {
+for (let i = 0; i < 20; i++) {
+  for (let j = 0; j < 20; j++) {
   const cell = document.createElement("div");
   cell.className = "cell";
   cell.textContent = patterns[Math.floor(Math.random() * patterns.length)];
