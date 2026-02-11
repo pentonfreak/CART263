@@ -45,7 +45,63 @@ function setup_D() {
 
   function aniB(parentCanvas) {
       console.log("in ani-B -teamD");
+
+      const grid = document.createElement("div");
+      parentCanvas.appendChild(grid);
+      grid.id = "grid";
+
+/**
+ * Pattern options:
+ */
+
+const patterns = ["+", "-", "*", "•", "×", "o"];
+
+// const patterns = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
+// const patterns = ["\u25A0", "\u25A1", "\u25A2", "\u25A3", "\u25A4", "\u25A5"];
+
+// const patterns = ["0", "1"]
+
+
+/**
+ * Color options:
+ */
+
+let sampleColors = ["#FF6B6B", "#6BCB77", "#4D96FF", "#FFD93D", "#FF6F91", "#845EC2"];
+
+// let sampleColors = ["#02ff17", "#00b418"];
+
+let boudingBoxParent = grid.getBoundingClientRect();
+/**
+ * Create grid
+ */
+for (let i = 0; i < 17; i++) {
+  for (let j = 0; j < 17; j++) {
+  const cell = document.createElement("div");
+  cell.className = "cell";
+  cell.textContent = patterns[Math.floor(Math.random() * patterns.length)];
   
+  // random color as mouse hovers
+  cell.addEventListener("mouseover", () => {
+    const randomColor = sampleColors[Math.floor(Math.random() * sampleColors.length)];
+    cell.style.color = randomColor;
+  });
+
+  // mouseover interaction
+  cell.addEventListener("mouseover", () => {
+    cell.classList.add("active");
+
+    // remove effect after a moment
+    setTimeout(() => {
+      cell.classList.remove("active");
+    }, 600);
+  });
+
+  grid.appendChild(cell);
+  }
+ 
+}
+
   }
   /****************ANI C ************************************ */
   /** PUT ALL YOUR CODE FOR INTERACTIVE PATTERN C INSIDE HERE */
@@ -70,29 +126,31 @@ function setup_D() {
   function aniC(parentCanvas) {
       console.log("in ani-C -teamD");
 
-      let boudingBoxParent = parentCanvas.getBoundingClientRect();
-      console.log(boudingBoxParent);
-  
-      const card = document.getElementById("card_team_D");
+const table = document.createElement("div");
+      parentCanvas.appendChild(table);
+      table.id = "table";
 
-      // simple deck
-      const cards = ["♠", "♥", "♦", "♣"];
-      const numberOfCards = [1,2,3,4,5,6,7,8,9,10,"J","Q","K","A"];
-      let current = 0;
-      let cardColor = ["#ff0000", "#000000"];
+  const card = document.createElement("div");
+      table.appendChild(card);
+      card.id = "card";
 
-    document.getElementById("card_team_D").align = "center";
+// simple deck
+const cards = ["♠", "♥", "♦", "♣"];
+const numberOfCards = [1,2,3,4,5,6,7,8,9,10,"J","Q","K","A"];
+let current = 0;
+let cardColor = ["#ff0000", "#000000"];
 
-      // show first card
-      card.textContent = cards[current];
+/**
+ * Space bar interaction to cycle through cards
+*/
 
-    /*** THIS IS THE CALLBACK FOR KEY DOWN (* DO NOT CHANGE THE NAME *..) */
-    windowKeyDownRef = function (e) {
-      //code for key down in here
-      console.log(e);
-      console.log("d-down");
+// show first card
+card.textContent = cards[current];
 
-      if (e.code === "Space") {
+windowKeyDownRef = function(event) {
+  if (event.code === "Space") { // space bar
+    event.preventDefault();
+    
     // change card
     let randomCard = cards[Math.floor(Math.random() * cards.length)];
     // change number
@@ -100,33 +158,28 @@ function setup_D() {
     // random combination
      card.textContent = randomCard + randomNumber;
     
-
-
     // random color
     let randomColor = cardColor[Math.floor(Math.random() * cardColor.length)];
     card.style.color = randomColor;
-
 
     // small feedback animation
     card.style.transform = "scale(1.1)";
     setTimeout(() => {
       card.style.transform = "scale(1)";
-      }, 150);
-    }
-  };
+    }, 150);
+  }
+}
 
-    /*** THIS IS THE CALLBACK FOR KEY UP (*DO NOT CHANGE THE NAME..) */
-    windowKeyUpRef = function (e) {
-      console.log(e);
-      console.log("d-up");
-
-      if (e.code === "Space") {   // space bar
+windowKeyUpRef = function(event) {
+    if (event.code === "Space") {   // space bar
         console.log(card.textContent);
         }
-    };
-    //DO NOT REMOVE
-    window.addEventListener("keydown", windowKeyDownRef);
-    window.addEventListener("keyup", windowKeyUpRef);
+}
+
+window.addEventListener("keydown", windowKeyDownRef);
+window.addEventListener("keyup", windowKeyUpRef);
+
+
   }
 
   /****************ANI D************************************ */

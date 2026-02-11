@@ -22,12 +22,9 @@ windowKeyDownRef = function(event) {
     // random combination
      card.textContent = randomCard + randomNumber;
     
-
-
     // random color
     let randomColor = cardColor[Math.floor(Math.random() * cardColor.length)];
     card.style.color = randomColor;
-
 
     // small feedback animation
     card.style.transform = "scale(1.1)";

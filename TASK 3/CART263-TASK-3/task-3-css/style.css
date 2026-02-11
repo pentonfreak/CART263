@@ -102,15 +102,18 @@ body{
     background:rgba(246, 15, 142,1.0);
   }
 
-  /*CSS TEAM D*/
-  #grid_D {
+/*TEAM D*/
+
+#grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 24px);
-  gap: 8px;
-  padding: 20px;
+  grid-template-columns: repeat(auto-fill, 10px);
+  gap: 4px;
+  padding: 10px;
+  width: 350px;
 }
 
-.cell_D {
+/* each text cell */
+.cell {
   color: rgba(255,255,255,0.3);
   font-size: 18px;
   transition: 
@@ -121,13 +124,13 @@ body{
 }
 
 /* activated on hover */
-.cell_D.active {
+.cell.active {
   color: white;
   transform: scale(1.6);
   opacity: 1;
 }
 
-#table_D {
+#table {
   width: 100%;
   height: 100%;
   display: flex;
@@ -135,7 +138,7 @@ body{
   align-items: center;
 }
 
-#card_D {
+#card {
   width: 120px;
   height: 170px;
   background: white;
