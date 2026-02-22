@@ -154,8 +154,6 @@ let garden = {
  * 7/ Ensure and Implement the functionality for the birds (collab with TEAM E) to be affected by the current weather and temperature.
  * 
 */
-const weatherUI = document.querySelector("#weather-ui");
-
-let weather = new Weather("rainy", 12, weatherUI);
+let weather = new Weather("rainy", 10);
 weather.renderWeather();
 }

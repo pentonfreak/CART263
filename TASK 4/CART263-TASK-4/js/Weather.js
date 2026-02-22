@@ -1,38 +1,42 @@
 class Weather {
-  constructor(state, temp, mountEl) {
-    this.state = state;  
-    this.temp = temp;
-    this.mountEl = mountEl;
+  constructor(state, temp) {
+    this.state = state;   // "rainy"
+    this.temp = temp;     // number
   }
 
   renderWeather() {
     if (this.state === "rainy") {
-      this.renderRain();
+      this.renderRainy();
     }
-}
+  }
 
-renderRain() {
-    // Cloud
-    const cloud = document.createElement("div");
-    cloud.classList.add("cloud");
-    this.mountEl.appendChild(cloud);
+  renderRainy() {
+    // Remove old rain if exists
+    const oldRain = document.querySelector(".rain-layer");
+    if (oldRain) oldRain.remove();
 
-    // Rain container
-    const rain = document.createElement("div");
-    rain.classList.add("rain");
+    // Darken sky
+    const sky = document.querySelector(".sky");
+    if (sky) {
+      sky.style.background = "rgb(40, 60, 90)";
+    }
 
-    // Create raindrops
-    for (let i = 0; i < 40; i++) {
+    // Create full screen rain layer
+    const rainLayer = document.createElement("div");
+    rainLayer.classList.add("rain-layer");
+
+    // Heavy rain (300 drops)
+    for (let i = 0; i < 300; i++) {
       const drop = document.createElement("div");
-      drop.classList.add("drop");
+      drop.classList.add("raindrop");
 
-      // random position
-      drop.style.left = Math.random() * 100 + "%";
-      drop.style.animationDelay = Math.random() * 1 + "s";
+      drop.style.left = Math.random() * 100 + "vw";
+      drop.style.animationDuration = 0.3 + Math.random() * 0.4 + "s";
+      drop.style.animationDelay = Math.random() * 2 + "s";
 
-      rain.appendChild(drop);
+      rainLayer.appendChild(drop);
     }
 
-    this.mountEl.appendChild(rain);
-    }
+    document.body.appendChild(rainLayer);
+  }
 }
