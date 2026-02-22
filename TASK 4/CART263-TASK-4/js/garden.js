@@ -167,5 +167,4 @@ setInterval(() => {
   // Render the new weather
   currentWeather.renderWeather();
 }, 5000);
-
 }
