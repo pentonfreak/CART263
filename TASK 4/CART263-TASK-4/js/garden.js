@@ -71,7 +71,7 @@ let garden = {
       }
   }
   createAndRenderTheGarden();
-}
+
 
   
   /*** TEAM A AND B NEED TO COORDINATE
@@ -154,3 +154,8 @@ let garden = {
  * 7/ Ensure and Implement the functionality for the birds (collab with TEAM E) to be affected by the current weather and temperature.
  * 
 */
+const weatherUI = document.querySelector("#weather-ui");
+
+let weather = new Weather("rainy", 12, weatherUI);
+weather.renderWeather();
+}
