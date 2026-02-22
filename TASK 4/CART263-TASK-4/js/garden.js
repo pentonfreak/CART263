@@ -154,6 +154,18 @@ let garden = {
  * 7/ Ensure and Implement the functionality for the birds (collab with TEAM E) to be affected by the current weather and temperature.
  * 
 */
-let weather = new Weather("rainy", 10);
-weather.renderWeather();
+
+// Change the weather state and temperature every 5 seconds
+let weatherStates = ["sunny", "rainy", "cloudy"];
+let currentWeather = new Weather(weatherStates[0], 25); // Start with sunny weather and 25 degrees
+
+setInterval(() => {
+  // Randomly change weather state
+  currentWeather.state = weatherStates[Math.floor(Math.random() * weatherStates.length)];
+  // Randomly change temperature between 15 and 35 degrees
+  currentWeather.temp = Math.floor(Math.random() * 20) + 15;
+  // Render the new weather
+  currentWeather.renderWeather();
+}, 5000);
+
 }

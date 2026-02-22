@@ -72,4 +72,11 @@ body{
   }
 }
 
+.cloud {
+  position: absolute;
+  background: #fff;
+  border-radius: 50px;
+  opacity: 0.8;
+}
+
 
