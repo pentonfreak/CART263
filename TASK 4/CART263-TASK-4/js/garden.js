@@ -157,7 +157,8 @@ let garden = {
 
 // Change the weather state and temperature every 5 seconds
 let weatherStates = ["sunny", "rainy", "cloudy"];
-let currentWeather = new Weather(weatherStates[0], 25); // Start with sunny weather and 25 degrees
+// Start with sunny weather and 25 degrees
+let currentWeather = new Weather(weatherStates[0], 25);
 
 setInterval(() => {
   // Randomly change weather state

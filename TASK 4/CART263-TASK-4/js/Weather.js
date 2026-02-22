@@ -1,7 +1,7 @@
 class Weather {
   constructor(state, temp) {
-    this.state = state;   // "rainy"
-    this.temp = temp;     // number
+    this.state = state;
+    this.temp = temp;     
   }
 
   renderWeather() {
