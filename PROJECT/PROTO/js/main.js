@@ -1,19 +1,14 @@
-const card = document.querySelector(".card");
+document.querySelectorAll('.panel').forEach(panel => {
+	panel.addEventListener('mousemove', (e) => {
+		const rect = panel.getBoundingClientRect();
+		const x = e.clientX - rect.left;
+		const y = e.clientY - rect.top;
+		panel.style.setProperty('--mouse-x', `${x}px`);
+		panel.style.setProperty('--mouse-y', `${y}px`);
+	});
 
-card.addEventListener("mousemove", (e) => {
-  const rect = card.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-
-  const centerX = rect.width / 2;
-  const centerY = rect.height / 2;
-
-  const rotateX = -(y - centerY) / 10;
-  const rotateY = (x - centerX) / 10;
-
-  card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-});
-
-card.addEventListener("mouseleave", () => {
-  card.style.transform = "rotateX(0deg) rotateY(0deg)";
+	panel.addEventListener('mouseleave', () => {
+		panel.style.setProperty('--mouse-x', '50%');
+		panel.style.setProperty('--mouse-y', '50%');
+	});
 });
