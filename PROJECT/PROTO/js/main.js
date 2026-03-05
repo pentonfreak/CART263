@@ -1,14 +1,17 @@
-document.querySelectorAll('.panel').forEach(panel => {
-	panel.addEventListener('mousemove', (e) => {
-		const rect = panel.getBoundingClientRect();
-		const x = e.clientX - rect.left;
-		const y = e.clientY - rect.top;
-		panel.style.setProperty('--mouse-x', `${x}px`);
-		panel.style.setProperty('--mouse-y', `${y}px`);
-	});
+const panels = document.querySelectorAll(".panel");
 
-	panel.addEventListener('mouseleave', () => {
-		panel.style.setProperty('--mouse-x', '50%');
-		panel.style.setProperty('--mouse-y', '50%');
-	});
+panels.forEach(panel => {
+  panel.style.setProperty("--mouse-x", "50%");
+  panel.style.setProperty("--mouse-y", "50%");
+
+  panel.addEventListener("mousemove", (e) => {
+    const r = panel.getBoundingClientRect();
+    panel.style.setProperty("--mouse-x", `${e.clientX - r.left}px`);
+    panel.style.setProperty("--mouse-y", `${e.clientY - r.top}px`);
+  });
+
+  panel.addEventListener("mouseleave", () => {
+    panel.style.setProperty("--mouse-x", "50%");
+    panel.style.setProperty("--mouse-y", "50%");
+  });
 });
