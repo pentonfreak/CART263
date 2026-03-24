@@ -1,4 +1,4 @@
-class CircularObj {
+class CircularObj1 {
   constructor(x, y, radius, f_color, s_color, context) {
     // We write instructions to set up a Flower here
     // Position and size information
@@ -32,7 +32,9 @@ class CircularObj {
 
   update() {
     //update circle
-    //this.x += 1;
-    //console.log("circle update");
+    // this.x += 1;
+    // console.log("circle update");
   }
 }
+
+

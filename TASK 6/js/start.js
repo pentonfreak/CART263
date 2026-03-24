@@ -24,8 +24,9 @@ for(let i =0; i<theCanvases.length; i++){
 }
 
 let drawingBoardA = new DrawingBoard(theCanvases[0],theContexts[0],theCanvases[0].id);
-//add a circular object to canvas A
-drawingBoardA.addObj(new CircularObj(100,100,20,"#FFC300","#E6E6FA", drawingBoardA.context))
+// //add 2 circular object to canvas A (visible inside the drawing board)
+drawingBoardA.addObj(new CircularObj1 (170, 140,20,"#FFC300","#E6E6FA", drawingBoardA.context))
+drawingBoardA.addObj(new CircularObj1 (220, 140,20,"#FF5733","#E6E6FA", drawingBoardA.context))
 drawingBoardA.display();
 
 
@@ -72,6 +73,7 @@ function animationLoop(){
  * Please for this exercise - do not add any new shapes other than the circular object...
  * 
  */
+
 
 
 
