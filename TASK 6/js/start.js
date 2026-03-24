@@ -74,6 +74,8 @@ function animationLoop(){
  */
 
 
+
+
 /** TASK 2:(Drawing Board B) - 
  *  1: Affect the rectangle by input from the microphone somehow, in real time...
  *  at least two properties of the rectangle need to update and change...
