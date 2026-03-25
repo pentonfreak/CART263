@@ -24,23 +24,26 @@ for(let i =0; i<theCanvases.length; i++){
 }
 
 let drawingBoardA = new DrawingBoard(theCanvases[0],theContexts[0],theCanvases[0].id);
-// //add 2 circular object to canvas A (visible inside the drawing board)
-drawingBoardA.addObj(new CircularObj1 (170, 140,20,"#FFC300","#E6E6FA", drawingBoardA.context))
-drawingBoardA.addObj(new CircularObj1 (220, 140,20,"#FF5733","#E6E6FA", drawingBoardA.context))
+//add 2 circular object to canvas A
+drawingBoardA.addObj(new CircularObj1 (100, 110,20,"#fff700d1","#E6E6FA", drawingBoardA.context))
 drawingBoardA.display();
 
 
 
-let drawingBoardB = new DrawingBoard(theCanvases[1],theContexts[1],theCanvases[1].id);
-//add a rectangular object to canvas B
-drawingBoardB.addObj(new RectangularObj(100,100,50,70,"#FF5733","#E6E6FA",drawingBoardB.context))
+let drawingBoardB = new DrawingBoard(theCanvases[1], theContexts[1], theCanvases[1].id);
+
+// create rectangle and keep reference
+let rectB = new RectangularObj(170, 120, 50, 50, "#FF5733", "#E6E6FA", drawingBoardB.context);
+drawingBoardB.addObj(rectB);
 drawingBoardB.display();
 
 
-let drawingBoardC = new DrawingBoard(theCanvases[2],theContexts[2],theCanvases[2].id);
+let drawingBoardC = new DrawingBoard(theCanvases[2], theContexts[2], theCanvases[2].id);
 //add a freestyle object to canvas C
-drawingBoardC.addObj(new FreeStyleObj(10,100,300,"#CF9FFF","#CF9FFF", drawingBoardC.context))
+let freeStyleC = new FreeStyleObj(10, 100, 300, "#CF9FFF", "#CF9FFF", drawingBoardC.context);
+drawingBoardC.addObj(freeStyleC);
 drawingBoardC.display();
+
 
 let drawingBoardD = new DrawingBoard(theCanvases[3],theContexts[3],theCanvases[3].id);
 drawingBoardD.addObj(new VideoObj(0,0,400,300,videoEl,drawingBoardD.context))
@@ -52,6 +55,22 @@ window.requestAnimationFrame(animationLoop);
 
 function animationLoop(){
     /*** CALL THE EACH CANVAS TO ANIMATE INSIDE  */
+
+// Khuong's Part
+if (analyser && dataArray) {
+    analyser.getByteFrequencyData(dataArray);
+
+    let sum = 0;
+    for (let i = 0; i < dataArray.length; i++) {
+        sum += dataArray[i];
+    }
+
+    let average = sum / dataArray.length;
+
+    rectB.micLevel = average;
+    freeStyleC.micLevel = average;
+}
+
     drawingBoardA.animate();
     drawingBoardB.animate();
     drawingBoardC.animate();
@@ -75,9 +94,6 @@ function animationLoop(){
  */
 
 
-
-
-
 /** TASK 2:(Drawing Board B) - 
  *  1: Affect the rectangle by input from the microphone somehow, in real time...
  *  at least two properties of the rectangle need to update and change...
@@ -86,6 +102,27 @@ function animationLoop(){
  *  
  */
 
+let audioContext;
+let analyser;
+let microphone;
+let dataArray;
+
+navigator.mediaDevices.getUserMedia({ audio: true })
+  .then(function(stream) {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioContext.createAnalyser();
+    microphone = audioContext.createMediaStreamSource(stream);
+
+    analyser.fftSize = 256;
+    let bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+
+    microphone.connect(analyser);
+  })
+  .catch(function(err) {
+    console.log("Microphone access denied or error:", err);
+  });
+  
 /** TASK 3:(Drawing Board C) - 
  *  1: Affect the free-style shape by input from the microphone somehow, in real time...
  *  at least two properties of the free-style shape need to update and change...
@@ -93,6 +130,27 @@ function animationLoop(){
  * -> the code for the microphone has NOT been added  - you need to implement it correctly...
  *  
  */
+
+// let audioContext;
+// let analyser;
+// let microphone;
+// let dataArray;
+
+// navigator.mediaDevices.getUserMedia({ audio: true })
+//   .then(function(stream) {
+//     audioContext = new (window.AudioContext || window.webkitAudioContext)();
+//     analyser = audioContext.createAnalyser();
+//     microphone = audioContext.createMediaStreamSource(stream);
+
+//     analyser.fftSize = 256;
+//     let bufferLength = analyser.frequencyBinCount;
+//     dataArray = new Uint8Array(bufferLength);
+
+//     microphone.connect(analyser);
+//   })
+//   .catch(function(err) {
+//     console.log("Microphone access denied or error:", err);
+//   });
 
 /** TASK 4:(Video - recorded - )
  * // add filters or manipulate the pixels... take user input from the boxes..
