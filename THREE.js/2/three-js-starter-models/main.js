@@ -1,5 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+
 
 
 // canvas
@@ -53,7 +55,37 @@ plane.position.y = - 0.65
 
 scene.add(plane)
 
-window.requestAnimationFrame(animate)
+//GTLF
+const gltfLoader = new GLTFLoader();
+
+let gltfModel = null;
+let gltfDuck = null;
+try{
+  gltfModel = await gltfLoader.loadAsync( 'model/Fox/glTF/Fox.gltf' );
+  console.log(gltfModel)
+  addAndRun(gltfModel);
+}
+catch (error){
+console.log(error.message)
+}
+
+function addAndRun(loadedObj){
+  console.log(loadedObj);
+  let foxModel = loadedObj.scene.children[0]
+  scene.add(foxModel);
+  foxModel.scale.set(.015,.015,.015)
+  window.requestAnimationFrame(animate);
+
+  function animate() {
+    // Update controls
+    controls.update();
+    // Render
+    renderer.render(scene, camera);
+    window.requestAnimationFrame(animate);
+  }
+}
+
+// window.requestAnimationFrame(animate)
 
 function animate()
 {
