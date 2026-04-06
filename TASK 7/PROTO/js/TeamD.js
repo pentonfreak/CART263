@@ -8,180 +8,45 @@ export class PlanetD {
         this.orbitSpeed = orbitSpeed;
         this.angle = Math.random() * Math.PI * 2;
 
-        // Main planet system group
-        this.group = new THREE.Group();
+        //Create planet group
+        this.group = new THREE.Group()
+              
+        // Create planet
+        //STEP 1:
+        //TODO: Create a planet using THREE.SphereGeometry (Radius must be between 1.5 and 2).
+        //TODO: Give it a custom material using THREE.MeshStandardMaterial.
+        //TODO: Use castShadow and receiveShadow on the mesh and all future ones so they can cast and receive shadows.
+        //TODO: Add the planet mesh to the planet group.
 
-        // -------------------------
-        // STEP 1: CREATE PLANET
-        // -------------------------
-        const planetGeometry = new THREE.SphereGeometry(1.8, 48, 48);
-        const planetMaterial = new THREE.MeshStandardMaterial({
-            color: 0x4466aa,
-            roughness: 0.9,
-            metalness: 0.1
-        });
+        //STEP 2: 
+        //TODO: Add from 1 to 3 orbiting moons to the planet group. 
+        //TODO: The moons should rotate around the planet just like the planet group rotates around the Sun.
 
-        this.planetMesh = new THREE.Mesh(planetGeometry, planetMaterial);
-        this.planetMesh.castShadow = true;
-        this.planetMesh.receiveShadow = true;
-        this.group.add(this.planetMesh);
-
-        // -------------------------
-        // STEP 2: ADD MOONS
-        // -------------------------
-        this.moons = [];
-
-        for (let i = 0; i < 2; i++) {
-            const moonPivot = new THREE.Group();
-
-            const moonGeometry = new THREE.SphereGeometry(0.35 + i * 0.08, 24, 24);
-            const moonMaterial = new THREE.MeshStandardMaterial({
-                color: i === 0 ? 0xbbbbbb : 0x8888aa,
-                roughness: 1.0,
-                metalness: 0.0
-            });
-
-            const moonMesh = new THREE.Mesh(moonGeometry, moonMaterial);
-            moonMesh.castShadow = true;
-            moonMesh.receiveShadow = true;
-
-            const moonDistance = 3 + i * 1.2;
-            moonMesh.position.x = moonDistance;
-
-            moonPivot.rotation.y = Math.random() * Math.PI * 2;
-            moonPivot.add(moonMesh);
-            this.group.add(moonPivot);
-
-            this.moons.push({
-                pivot: moonPivot,
-                mesh: moonMesh,
-                speed: 0.01 + i * 0.01
-            });
-        }
-
-        // -------------------------
-        // STEP 3: ADD PROPS / CRITTERS
-        // -------------------------
-        // For now, use simple meshes as placeholders instead of Blender models
-        this.clickableObjects = [];
-        this.critters = [];
-
-        for (let i = 0; i < 4; i++) {
-            const critterGroup = new THREE.Group();
-
-            // Body
-            const bodyGeometry = new THREE.BoxGeometry(0.35, 0.35, 0.35);
-            const bodyMaterial = new THREE.MeshStandardMaterial({
-                color: 0xff8844,
-                roughness: 0.7
-            });
-            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
-            body.castShadow = true;
-            body.receiveShadow = true;
-            critterGroup.add(body);
-
-            // Little antenna / hat
-            const topGeometry = new THREE.ConeGeometry(0.12, 0.25, 8);
-            const topMaterial = new THREE.MeshStandardMaterial({
-                color: 0xffff66,
-                roughness: 0.5
-            });
-            const top = new THREE.Mesh(topGeometry, topMaterial);
-            top.position.y = 0.3;
-            top.castShadow = true;
-            top.receiveShadow = true;
-            critterGroup.add(top);
-
-            // Put critter on planet surface
-            const phi = Math.random() * Math.PI * 2;
-            const theta = Math.random() * Math.PI;
-            const radius = 1.8;
-
-            const x = Math.sin(theta) * Math.cos(phi) * radius;
-            const y = Math.cos(theta) * radius;
-            const z = Math.sin(theta) * Math.sin(phi) * radius;
-
-            critterGroup.position.set(x, y, z);
-
-            // Make the critter stand outward from the planet surface
-            const normal = new THREE.Vector3(x, y, z).normalize();
-            critterGroup.quaternion.setFromUnitVectors(
-                new THREE.Vector3(0, 1, 0),
-                normal
-            );
-
-            this.planetMesh.add(critterGroup);
-
-            this.clickableObjects.push(body, top);
-            this.critters.push({
-                group: critterGroup,
-                body: body,
-                isAnimating: false,
-                animTime: 0,
-                baseScale: 1
-            });
-        }
-
-        // -------------------------
-        // RAYCASTER
-        // -------------------------
-        this.raycaster = new THREE.Raycaster();
+        //STEP 3:
+        //TODO: Load Blender models to populate the planet with multiple props and critters by adding them to the planet group.
+        //TODO: Make sure to rotate the models so they are oriented correctly relative to the surface of the planet.
+        
+        //STEP 4:
+        //TODO: Use raycasting in the click() method below to detect clicks on the models, and make an animation happen when a model is clicked.
+        //TODO: Use your imagination and creativity!
 
         this.scene.add(this.group);
     }
-
+    
     update(delta) {
         // Orbit around sun
         this.angle += this.orbitSpeed * delta * 30;
         this.group.position.x = Math.cos(this.angle) * this.orbitRadius;
         this.group.position.z = Math.sin(this.angle) * this.orbitRadius;
-
+        
         // Rotate planet
-        this.planetMesh.rotation.y += delta * 0.5;
+        this.group.rotation.y += delta*0.5;
 
-        // Moon orbits
-        this.moons.forEach((moon) => {
-            moon.pivot.rotation.y += delta * moon.speed * 30;
-            moon.mesh.rotation.y += delta * 0.8;
-        });
-
-        // Critter idle animation + click animation
-        this.critters.forEach((critter, index) => {
-            // idle bob
-            critter.group.position.multiplyScalar(1); // keeps same structure
-            critter.group.rotation.z = Math.sin(performance.now() * 0.002 + index) * 0.1;
-
-            if (critter.isAnimating) {
-                critter.animTime += delta * 3;
-
-                const bounce = 1 + Math.sin(critter.animTime * 10) * 0.35;
-                critter.group.scale.set(bounce, bounce, bounce);
-
-                if (critter.animTime > 1) {
-                    critter.isAnimating = false;
-                    critter.animTime = 0;
-                    critter.group.scale.set(1, 1, 1);
-                }
-            }
-        });
+        //TODO: Do the moon orbits and the model animations here.
     }
 
     click(mouse, scene, camera) {
-        this.raycaster.setFromCamera(mouse, camera);
-        const intersects = this.raycaster.intersectObjects(this.clickableObjects, false);
-
-        if (intersects.length > 0) {
-            const clickedObject = intersects[0].object;
-
-            this.critters.forEach((critter) => {
-                if (critter.group.children.includes(clickedObject)) {
-                    critter.isAnimating = true;
-                    critter.animTime = 0;
-
-                    // change color when clicked
-                    critter.body.material.color.setHex(Math.random() * 0xffffff);
-                }
-            });
-        }
+        //TODO: Do the raycasting here.
     }
 }
+
