@@ -80,17 +80,18 @@ export class PlanetD {
         const planetRadius = 1.5;
 
         for (let i = 0; i < modelCount; i++) {
-            this.loader.load('models/task7.glb', (gltf) => {
+            loader.load('models/Moon.glb', (gltf) => {
                 const model = gltf.scene;
                 model.scale.set(0.5, 0.5, 0.5); // Scale down the model
                 model.castShadow = true;
                 model.receiveShadow = true;
 
+
                 this.group.add(model);
                 this.models.push(model);
             });
 
-            this.scene .add(this.group);
+            this.scene.add(this.group);
         }
 
         //STEP 4:
