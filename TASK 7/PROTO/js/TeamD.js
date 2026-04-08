@@ -83,7 +83,7 @@ export class PlanetD {
             this.loader.load('models/ExoplanetWithBarrier-LowPoly.gltf', (gltf) => {
                 const model = gltf.scene;
                 
-                model.scale.set(0.5, 0.5, 0.5); // Scale down the model
+                model.scale.set(1, 1, 1); // Scale down the model
                 model.traverse((child) => {
                     if (child.isMesh) {
                         child.castShadow = true;
