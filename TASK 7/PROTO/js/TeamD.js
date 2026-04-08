@@ -104,12 +104,49 @@ export class PlanetD {
             });
         }
 
+        this.loader = new GLTFLoader();
+        this.models = [];
+
+        const modelCount = 4;      // how many copies on the planet
+        const planetRadius = 1.7;  // same as sphere radius
+
+        for (let i = 0; i < modelCount; i++) {
+            this.loader.load(
+                'models/house.gltf',
+                (gltf) => {
+                    const model = gltf.scene;
+
+                    // scale the model
+                    model.scale.set(0.05, 0.05, 0.05);
+
+                    // shadows + optional custom material
+                    model.traverse((child) => {
+                        if (child.isMesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                        }
+                    });
+
+                    // Position model on the planet surface
+                    const angle = Math.random() * Math.PI * 2;
+                    const y = Math.random() * 0.5; // Random height
+                    model.position.set(Math.cos(angle) * planetRadius, y, Math.sin(angle) * planetRadius);
+                    model.rotation.y = Math.random() * Math.PI * 2; // Random rotation
+
+                    this.group.add(model);
+                    this.models.push(model);
+                }
+            );
+        }
+
+
         this.scene.add(this.group);
     }
 
     //STEP 4:
     //TODO: Use raycasting in the click() method below to detect clicks on the models, and make an animation happen when a model is clicked.
     //TODO: Use your imagination and creativity!
+
 
     
     update(delta) {
