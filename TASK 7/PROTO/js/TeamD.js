@@ -69,37 +69,46 @@ export class PlanetD {
         this.moons.push({ pivot: moonPivot2, speed: 0.3 });
 
 
+        // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
         //STEP 3:
         //TODO: Load Blender models to populate the planet with multiple props and critters by adding them to the planet group.
         //TODO: Make sure to rotate the models so they are oriented correctly relative to the surface of the planet.
 
-        this.loader = new GLTFLoader();
-        this.models = [];
+        const loader = new GLTFLoader();
+        const textureLoader = new THREE.TextureLoader();
 
-        const modelCount = 4
-        const planetRadius = 1.5;
+        const diffuse = textureLoader.load('./textures/color.jpg');
+        
 
-        for (let i = 0; i < modelCount; i++) {
-            this.loader.load('models/Moon.glb', (gltf) => {
-                const model = gltf.scene;
-                model.scale.set(0.5, 0.5, 0.5); // Scale down the model
-                model.castShadow = true;
-                model.receiveShadow = true;
+        loader.load('./task7.glb', (gltf) => {
+         const model = gltf.scene;
 
-
-                this.group.add(model);
-                this.models.push(model);
+         model.traverse((child) => {
+        if (child.isMesh) {
+            child.material = new THREE.MeshStandardMaterial({
+                map: diffuse,
+                roughness: 1.0,
+                metalness: 0.1
             });
 
-            this.scene.add(this.group);
+            child.castShadow = true;
+            child.receiveShadow = true;
+            child.material.needsUpdate = true;
         }
+    });
+
+    scene.add(model);
+});
 
         //STEP 4:
         //TODO: Use raycasting in the click() method below to detect clicks on the models, and make an animation happen when a model is clicked.
         //TODO: Use your imagination and creativity!
 
-        this.scene.add(this.group);
-    }
+    this.scene.add(this.group);
+ }
+
     
     update(delta) {
         // Orbit around sun
@@ -115,6 +124,8 @@ export class PlanetD {
 
     click(mouse, scene, camera) {
         //TODO: Do the raycasting here.
+        }
     }
-}
+
+
 
