@@ -79,11 +79,11 @@ export class PlanetD {
         this.loader = new GLTFLoader();
         this.models = [];
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 1; i++) {
             this.loader.load('models/ExoplanetWithBarrier-LowPoly.gltf', (gltf) => {
                 const model = gltf.scene;
                 
-                model.scale.set(1, 1, 1); // Scale down the model
+                model.scale.set(0.5, 0.5, 0.5); // Scale down the model
                 model.traverse((child) => {
                     if (child.isMesh) {
                         child.castShadow = true;
@@ -94,7 +94,7 @@ export class PlanetD {
                 // Position model on a different orbit
             
                 const angle = Math.random() * Math.PI * 2;
-                const radius = 1.5 + Math.random() * 0.5;
+                const radius = 10;
                 model.position.set(Math.cos(angle) * radius, 0, Math.sin(angle) * radius);
                 model.rotation.y = Math.random() * Math.PI * 2; // Random rotation
                 
@@ -114,7 +114,8 @@ export class PlanetD {
     
     update(delta) {
         // Orbit around sun
-        this.angle += this.orbitSpeed * delta * 30;
+        console.log(this.angle);
+        this.angle += this.orbitSpeed;
         this.group.position.x = Math.cos(this.angle) * this.orbitRadius;
         this.group.position.z = Math.sin(this.angle) * this.orbitRadius;
         
