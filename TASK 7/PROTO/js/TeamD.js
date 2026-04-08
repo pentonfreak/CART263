@@ -79,7 +79,7 @@ export class PlanetD {
         const loader = new GLTFLoader();
         const textureLoader = new THREE.TextureLoader();
 
-        const diffuse = textureLoader.load('./textures/color.jpg');
+        const diffuse = textureLoader.load('./textures/rock-8_diffuse.jpg');
         
 
         loader.load('./task7.glb', (gltf) => {
