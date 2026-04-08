@@ -76,38 +76,40 @@ export class PlanetD {
         //TODO: Load Blender models to populate the planet with multiple props and critters by adding them to the planet group.
         //TODO: Make sure to rotate the models so they are oriented correctly relative to the surface of the planet.
 
-        const loader = new GLTFLoader();
-        const textureLoader = new THREE.TextureLoader();
+        this.loader = new GLTFLoader();
+        this.models = [];
 
-        const diffuse = textureLoader.load('./textures/rock-8_diffuse.jpg');
-        
+        for (let i = 0; i < 5; i++) {
+            this.loader.load('models/ExoplanetWithBarrier-LowPoly.gltf', (gltf) => {
+                const model = gltf.scene;
+                
+                model.scale.set(0.5, 0.5, 0.5); // Scale down the model
+                model.traverse((child) => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                    }
+                });
 
-        loader.load('./task7.glb', (gltf) => {
-         const model = gltf.scene;
-
-         model.traverse((child) => {
-        if (child.isMesh) {
-            child.material = new THREE.MeshStandardMaterial({
-                map: diffuse,
-                roughness: 1.0,
-                metalness: 0.1
+                // Position model on a different orbit
+            
+                const angle = Math.random() * Math.PI * 2;
+                const radius = 1.5 + Math.random() * 0.5;
+                model.position.set(Math.cos(angle) * radius, 0, Math.sin(angle) * radius);
+                model.rotation.y = Math.random() * Math.PI * 2; // Random rotation
+                
+                
+                this.group.add(model);
+                this.models.push(model);
             });
-
-            child.castShadow = true;
-            child.receiveShadow = true;
-            child.material.needsUpdate = true;
         }
-    });
 
-    scene.add(model);
-});
+        this.scene.add(this.group);
+    }
 
-        //STEP 4:
-        //TODO: Use raycasting in the click() method below to detect clicks on the models, and make an animation happen when a model is clicked.
-        //TODO: Use your imagination and creativity!
-
-    this.scene.add(this.group);
- }
+    //STEP 4:
+    //TODO: Use raycasting in the click() method below to detect clicks on the models, and make an animation happen when a model is clicked.
+    //TODO: Use your imagination and creativity!
 
     
     update(delta) {
@@ -125,7 +127,6 @@ export class PlanetD {
     click(mouse, scene, camera) {
         //TODO: Do the raycasting here.
         }
-    }
-
+}
 
 
