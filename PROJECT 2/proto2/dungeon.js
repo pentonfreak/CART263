@@ -65,8 +65,12 @@ const loader = new GLTFLoader();
 /*
  * (PUT YOUR MODEL HERE)
  */
-loader.load('model/DungeonIsometric.gltf', function (gltf) {
+loader.load('model/DungeonIsometric-withLights.gltf', function (gltf) {
   const model = gltf.scene;
+  if (!model || model.children.length === 0) {
+    console.error('GLTF loaded but scene is empty. Re-export from Blender with selected objects and mesh data.');
+    return;
+  }
   let lightCount = 0;
 
   // Enable Shadows
@@ -99,6 +103,8 @@ loader.load('model/DungeonIsometric.gltf', function (gltf) {
 
 
   roomGroup.add(model);
+}, undefined, function (error) {
+  console.error('Failed to load GLTF:', error);
 });
 
 // Raycaster for interaction
