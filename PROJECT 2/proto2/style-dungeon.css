@@ -69,56 +69,69 @@ canvas {
   top: -50px;
 }
 
-#panel {
+
+/* Toggle Button */
+.toggle-bar {
   position: absolute;
-  right: 24px;
-  top: 24px;
-  width: 320px;
-  max-width: calc(100vw - 48px);
-  min-height: 220px;
+  transform: translateX(-50%);
+  bottom: 24px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 80px;
   background: rgba(255, 255, 255, 0.88);
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 20px;
-  padding: 20px 18px 18px;
-  z-index: 20;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-}
-
-.hidden {
-  display: none;
-}
-
-#closePanel {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  width: 32px;
-  height: 32px;
-  border: none;
-  border-radius: 50%;
-  background: #f0e7e7;
+  border-radius: 0 20px 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  font-size: 1.1rem;
+  z-index: 20;
 }
 
-#panelTitle {
-  margin-bottom: 12px;
-  font-size: 1.25rem;
+.dungeon-wrapper,
+.room-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
-#panelBody {
-  line-height: 1.6;
-  font-size: 0.95rem;
-  color: rgba(0, 0, 0, 0.75);
+.toggle-button {
+    cursor: pointer;
+  width: 18px;
+  height: 18px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.88);
+    border-radius: 10px;
+    margin: 0px 16px;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-#panelBody a {
-  color: #7d5ba6;
-  text-decoration: none;
+.toggle-circle{
+  position: absolute;
+  left: 2px;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  background-color: var(--color-background);
+  transition: all 0.2s ease-in-out;
 }
 
-#panelBody a:hover {
-  text-decoration: underline;
+.toggle-button:hover .toggle-circle{
+  transform: scale(0.9);
 }
 
+.slide{
+  left: 31px;
+}

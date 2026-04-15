@@ -63,7 +63,7 @@ loader.setDRACOLoader(dracoLoader);
 /*
  * (PUT YOUR MODEL HERE)
  */
-loader.load('../model/Room.gltf', function (gltf) {
+loader.load('Jordan_Model/Room.gltf', function (gltf) {
     const model = gltf.scene;
 
     // Enable Shadows
@@ -133,6 +133,7 @@ window.addEventListener("pointermove", (event) => {
     targetRotationY = THREE.MathUtils.clamp(targetRotationY, -maxRotation, maxRotation);
 });
 
+
 //Panel
 const panel = document.getElementById('panel');
 const panelTitle = document.getElementById('panelTitle');
@@ -145,9 +146,11 @@ function opentPanel(title, body) {
     panel.classList.remove('hidden');
 }
 
-closePanel.addEventListener('click', () => {
-    panel.classList.add('hidden');
-});
+
+
+// closePanel.addEventListener('click', () => {
+//     panel.classList.add('hidden');
+// });
 window.requestAnimationFrame(animate);
 
 // Animate

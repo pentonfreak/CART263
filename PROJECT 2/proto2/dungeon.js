@@ -133,6 +133,7 @@ window.addEventListener("click", () => {
     }
 });
 
+
 // Limited drag rotation
 let dragging = false;
 let dragX = 0
@@ -175,7 +176,6 @@ window.addEventListener("pointermove", (event) => {
 //     panel.classList.add('hidden');
 // });
 
-// 
 
 // Animate
 function animate() {
@@ -208,3 +208,5 @@ window.addEventListener("resize", () => {
 resizeCamera();
   
 }
+
+runDungeon();
