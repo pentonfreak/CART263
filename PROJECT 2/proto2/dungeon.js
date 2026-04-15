@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
+function runDungeon() {
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -20,8 +21,11 @@ const camera = new THREE.OrthographicCamera(
 camera.position.set(5, 5, 5);
 camera.lookAt(0, 0, 0);
 
+// Canvas setup
+const canvas = document.getElementById("dungeonCanvas");
+
 // Renderer setup
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setClearColor(0x000000, 0);
@@ -34,7 +38,8 @@ renderer.toneMappingExposure = 1.0;
 
 renderer.shadowMap.enabled = true;
 
-document.body.appendChild(renderer.domElement);
+
+console.log(renderer.domElement )
 
 /* 
 * Lights
@@ -71,6 +76,7 @@ loader.load('model/DungeonIsometric-withLights.gltf', function (gltf) {
     console.error('GLTF loaded but scene is empty. Re-export from Blender with selected objects and mesh data.');
     return;
   }
+
   let lightCount = 0;
 
   // Enable Shadows
@@ -154,20 +160,22 @@ window.addEventListener("pointermove", (event) => {
 });
 
 //Panel
-const panel = document.getElementById('panel');
-const panelTitle = document.getElementById('panelTitle');
-const panelBody = document.getElementById('panelBody');
-const closePanel = document.getElementById('closePanel');
+// const panel = document.getElementById('panel');
+// const panelTitle = document.getElementById('panelTitle');
+// const panelBody = document.getElementById('panelBody');
+// const closePanel = document.getElementById('closePanel');
 
-function opentPanel(title, body) {
-    panelTitle.textContent = title;
-    panelBody.innerHTML = body;
-    panel.classList.remove('hidden');
-}
+// function opentPanel(title, body) {
+//     panelTitle.textContent = title;
+//     panelBody.innerHTML = body;
+//     panel.classList.remove('hidden');
+// }
 
-closePanel.addEventListener('click', () => {
-    panel.classList.add('hidden');
-});
+// closePanel.addEventListener('click', () => {
+//     panel.classList.add('hidden');
+// });
+
+// 
 
 // Animate
 function animate() {
@@ -198,3 +206,5 @@ window.addEventListener("resize", () => {
 });
 
 resizeCamera();
+  
+}
