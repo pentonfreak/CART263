@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 
 
 // Scene setup
@@ -45,12 +46,16 @@ scene.add(roomGroup);
 const interactive = [];
 
 // Load GLTF model
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath("https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/");
+
 const loader = new GLTFLoader();
+loader.setDRACOLoader(dracoLoader);
 
 /*
  * (PUT YOUR MODEL HERE)
  */
-loader.load('model/DungeonIsometric.gltf', function (gltf) {
+loader.load('model/Room.gltf', function (gltf) {
   const model = gltf.scene;
 
   // Enable Shadows
