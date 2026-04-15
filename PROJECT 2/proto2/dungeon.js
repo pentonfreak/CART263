@@ -4,7 +4,6 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 // Scene setup
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xdddddd);
 
 // Camera setup
 const frustumSize = 10;
@@ -22,20 +21,28 @@ camera.position.set(5, 5, 5);
 camera.lookAt(0, 0, 0);
 
 // Renderer setup
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setClearColor(0x000000, 0);
 renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
 
-// Lights
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+/* 
+* Lights
+*/
+// Low light for moody atmosphere,
+// with a directional light to cast shadows and add depth.
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
 scene.add(ambientLight);
 
-const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-dirLight.position.set(5, 10, 7.5);
-dirLight.castShadow = true;
-scene.add(dirLight);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.17);
+directionalLight.position.set(5, 10, 5);
+directionalLight.castShadow = true;
+directionalLight.shadow.mapSize.width = 1024;
+directionalLight.shadow.mapSize.height = 1024;
+scene.add(directionalLight);
 
 // Model Group
 const roomGroup = new THREE.Group();
@@ -60,6 +67,15 @@ loader.load('model/DungeonIsometric.gltf', function (gltf) {
       child.receiveShadow = true;
     }
   });
+
+    // Center the model so rotation and framing happen around the scene origin.
+    model.updateMatrixWorld(true);
+    const box = new THREE.Box3().setFromObject(model);
+    const center = box.getCenter(new THREE.Vector3());
+
+    model.position.x -= center.x;
+    model.position.z -= center.z;
+    model.position.y -= center.y;
 
   roomGroup.add(model);
 });

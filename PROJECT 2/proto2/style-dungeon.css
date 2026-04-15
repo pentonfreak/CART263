@@ -1,21 +1,45 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+:root {
+  --bg-color: rgb(20, 20, 20);
+  --panel-color: rgb(23, 23, 23);
+
+  /* subtle borders like the screenshot */
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --panel-border-hover: rgba(255, 255, 255, 0.14);
+
+
+  --muted: rgba(255, 255, 255, 0.55);
 }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #e8dfdf;
-}
+* { box-sizing: border-box; }
+
 
 body {
-  position: relative;
-  color: #2b2b2b;
+  background:
+    radial-gradient(1200px 1200px at 50% 40%,
+     rgba(255,255,255,0.07),
+      transparent 55%),
+    var(--bg-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  place-items: start center;
+  align-items: start center;
+
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
 }
+
+h1, h2, h3, h4, span {
+  color: rgb(240, 240, 240);
+  font-family: "Raleway", sans-serif;
+}
+
+.paragraph {
+  color: rgb(200, 200, 200);
+  font-family: "Raleway", sans-serif;
+}
+
+.text { text-align: center; }
 
 canvas {
   display: block;
@@ -23,20 +47,26 @@ canvas {
 
 #ui {
   position: absolute;
-  top: 24px;
-  left: 24px;
   z-index: 10;
+  text-align: center;
 }
 
 #siteTitle {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 6px;
+  display: flex;
+  align-items: center;
 }
 
 #siteSub {
-  font-size: 0.95rem;
+  font-size: 2 rem;
   color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: -50px;
 }
 
 #panel {
