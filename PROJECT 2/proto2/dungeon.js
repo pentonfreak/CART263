@@ -25,7 +25,15 @@ const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setClearColor(0x000000, 0);
+
+// Render light in model
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+
+
 renderer.shadowMap.enabled = true;
+
 document.body.appendChild(renderer.domElement);
 
 /* 
@@ -59,6 +67,7 @@ const loader = new GLTFLoader();
  */
 loader.load('model/DungeonIsometric.gltf', function (gltf) {
   const model = gltf.scene;
+  let lightCount = 0;
 
   // Enable Shadows
   model.traverse(function (child) {
@@ -66,7 +75,18 @@ loader.load('model/DungeonIsometric.gltf', function (gltf) {
       child.castShadow = true;
       child.receiveShadow = true;
     }
+
+    if (child.isLight) {
+      lightCount += 1;
+      child.visible = true;
+
+      if ('castShadow' in child) {
+        child.castShadow = true;
+      }
+    }
   });
+
+  console.log('GLTF light count:', lightCount);
 
     // Center the model so rotation and framing happen around the scene origin.
     model.updateMatrixWorld(true);
@@ -76,6 +96,7 @@ loader.load('model/DungeonIsometric.gltf', function (gltf) {
     model.position.x -= center.x;
     model.position.z -= center.z;
     model.position.y -= center.y;
+
 
   roomGroup.add(model);
 });
