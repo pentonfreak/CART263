@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Isometric Room</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+
+  <div id="ui">
+    <div id="siteTitle">Project Secundus</div>
+    <div id="siteSub">Click objects to explore</div>
+  </div>
+
+  <div id="panel" class="hidden">
+    <button id="closePanel">×</button>
+    <h2 id="panelTitle">Title</h2>
+    <div id="panelBody">Content goes here.</div>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
