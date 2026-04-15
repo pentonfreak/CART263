@@ -5912,17 +5912,17 @@
 		{
 			"mimeType":"image/png",
 			"name":"color palette 3.png",
-			"uri":"BLENDER/IMAGES/color%20palette%203.png"
+			"uri":"../texture/color%20palette%203.png"
 		},
 		{
 			"mimeType":"image/png",
 			"name":"color palette 1.png",
-			"uri":"BLENDER/IMAGES/color%20palette%201.png"
+			"uri":"../texture/color%20palette%201.png"
 		},
 		{
 			"mimeType":"image/png",
 			"name":"color palette 2.png",
-			"uri":"BLENDER/IMAGES/color%20palette%202.png"
+			"uri":"../texture/color%20palette%202.png"
 		}
 	],
 	"accessors":[
@@ -14440,7 +14440,7 @@
 	"buffers":[
 		{
 			"byteLength":7256012,
-			"uri":"Dungeon%20Isometric.bin"
+			"uri":"DungeonIsometric.bin"
 		}
 	]
 }
