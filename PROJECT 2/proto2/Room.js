@@ -11,7 +11,6 @@ const scene = new THREE.Scene();
 
 const canvas = document.getElementById('threeCanvas');
 
-
 // Camera setup
 const frustumSize = 10;
 const aspect = window.innerWidth / window.innerHeight;
@@ -64,26 +63,63 @@ loader.setDRACOLoader(dracoLoader);
  * (PUT YOUR MODEL HERE)
  */
 loader.load('Jordan_Model/Room.gltf', function (gltf) {
-    const model = gltf.scene;
+  const model = gltf.scene;
 
-    // Enable Shadows
-    model.traverse(function (child) {
-        if (child.isMesh) {
-            child.castShadow = true;
-            child.receiveShadow = true;
-        }
-    });
+  model.traverse(function (child) {
+    if (child.isMesh) {
+      child.castShadow = true;
+      child.receiveShadow = true;
 
-    model.updateMatrixWorld(true);
-    const box = new THREE.Box3().setFromObject(model);
-    const center = box.getCenter(new THREE.Vector3());
+      const meshName = child.name.toLowerCase();
 
-    model.position.x -= center.x;
-    model.position.y -= center.y;
-    model.position.z -= center.z;
+      if (meshName.includes("chair")) {
+        child.userData = {
+          title: "Artist Statement",
+          body: `
+            <p>This room represents a calm and personal space.</p>
+            <p>It contrasts the dungeon by offering warmth, familiarity, and reflection.</p>
+          `
+        };
+        interactive.push(child);
+      }
 
-    roomGroup.add(model);
+      if (meshName.includes("desk") || meshName.includes("table")) {
+        child.userData = {
+          title: "Project Info",
+          body: `
+            <p><strong>Course:</strong> Project 2</p>
+            <p><strong>Theme:</strong> Two isometric environments with interactive storytelling</p>
+            <p><strong>Tools:</strong> Blender, Three.js, HTML, CSS, JavaScript</p>
+          `
+        };
+        interactive.push(child);
+      }
+
+      if (meshName.includes("lamp") || meshName.includes("bed")) {
+        child.userData = {
+          title: "Inspiration",
+          body: `
+            <p>The room is inspired by cozy digital spaces and miniature isometric dioramas.</p>
+          `
+        };
+        interactive.push(child);
+      }
+    }
+  });
+
+  console.log('Room interactive objects:', interactive.map(obj => obj.name));
+
+  model.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(model);
+  const center = box.getCenter(new THREE.Vector3());
+
+  model.position.x -= center.x;
+  model.position.y -= center.y;
+  model.position.z -= center.z;
+
+  roomGroup.add(model);
 });
+
 
 // Raycaster for interaction
 const raycaster = new THREE.Raycaster();

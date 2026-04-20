@@ -17,27 +17,30 @@
 <body>
 
   <div class="toggle-bar">
-        <div class="dungeon-wrapper">
-        <button class="toggle-button">
-          <div class="toggle-circle"></div>
-        </button>
-        <div class="room-wrapper">
-        </div>
-      </div>
+    <button id="toggleViewBtn" class="toggle-button">
+      <div class="toggle-circle"></div>
+    </button>
+  </div>
 
+  <div id="app"></div>
 
-  <div>
-    <div id="app"></div>
-    <div id="ui">
-      <div id="siteTitle"><h1>Project Secundus</h1></div>
-      <div id="siteSub"><p class="paragraph">Click objects to explore</p></div>
-    </div>
-  
+  <div id="ui">
+    <div id="siteTitle"><h1>Project Secundus</h1></div>
+    <div id="siteSub"><p class="paragraph">Click objects to explore</p></div>
+  </div>
 
-    <canvas id="dungeonCanvas"></canvas>
-    <canvas style="display: none;" id="threeCanvas"></canvas>
-    <script type="module" src="dungeon.js"></script>
-    <script type="module" src="Room.js"></script>
-</div>
+  <!-- info panel -->
+  <div id="panel" class="panel hidden">
+    <button id="closePanel" class="close-btn">✕</button>
+    <h2 id="panelTitle"></h2>
+    <div id="panelBody"></div>
+  </div>
+
+  <!-- canvases -->
+  <canvas id="dungeonCanvas"></canvas>
+  <canvas id="threeCanvas" style="display: none;"></canvas>
+
+  <script type="module" src="dungeon.js"></script>
+  <script type="module" src="Room.js"></script>
 </body>
 </html>

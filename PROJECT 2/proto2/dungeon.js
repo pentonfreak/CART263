@@ -24,6 +24,37 @@ camera.lookAt(0, 0, 0);
 // Canvas setup
 const canvas = document.getElementById("dungeonCanvas");
 
+const dungeonCanvas = document.getElementById("dungeonCanvas");
+const roomCanvas = document.getElementById("threeCanvas");
+const toggleBtn = document.getElementById("toggleViewBtn");
+const toggleCircle = document.querySelector(".toggle-circle");
+
+function showDungeon() {
+  dungeonCanvas.style.display = "block";
+  roomCanvas.style.display = "none";
+  document.body.dataset.view = "dungeon";
+  if (toggleCircle) toggleCircle.classList.remove("slide");
+}
+
+function showRoom() {
+  dungeonCanvas.style.display = "none";
+  roomCanvas.style.display = "block";
+  document.body.dataset.view = "room";
+  if (toggleCircle) toggleCircle.classList.add("slide");
+}
+
+if (!document.body.dataset.view) {
+  showDungeon();
+}
+
+toggleBtn?.addEventListener("click", () => {
+  if (document.body.dataset.view === "dungeon") {
+    showRoom();
+  } else {
+    showDungeon();
+  }
+});
+
 // Renderer setup
 const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -79,17 +110,54 @@ loader.load('model/DungeonIsometric-withLights.gltf', function (gltf) {
 
   let lightCount = 0;
 
-  // Enable Shadows
   model.traverse(function (child) {
     if (child.isMesh) {
       child.castShadow = true;
       child.receiveShadow = true;
+
+      const meshName = child.name.toLowerCase();
+
+      if (meshName.includes("barrel")) {
+        child.userData = {
+          title: "About Me",
+          body: `
+            <p><strong>Name:</strong> Anton McMilan</p>
+            <p><strong>Program:</strong> Computation Arts</p>
+            <p><strong>Focus:</strong> Creative coding, 3D design, interactive web experiences</p>
+            <p><strong>Project:</strong> Project Secundus explores two contrasting isometric worlds: a dungeon and a room.</p>
+          `
+        };
+        interactive.push(child);
+      }
+
+      if (meshName.includes("chest")) {
+        child.userData = {
+          title: "Skills",
+          body: `
+            <p>• Three.js</p>
+            <p>• HTML / CSS / JavaScript</p>
+            <p>• Blender to web workflow</p>
+            <p>• Interactive environment design</p>
+          `
+        };
+        interactive.push(child);
+      }
+
+      if (meshName.includes("table") || meshName.includes("crate")) {
+        child.userData = {
+          title: "Concept",
+          body: `
+            <p>This project contrasts comfort and darkness through two isometric environments.</p>
+            <p>The interaction is intentionally simple: click to discover, drag to inspect, and toggle to shift worlds.</p>
+          `
+        };
+        interactive.push(child);
+      }
     }
 
     if (child.isLight) {
       lightCount += 1;
       child.visible = true;
-
       if ('castShadow' in child) {
         child.castShadow = true;
       }
@@ -97,16 +165,15 @@ loader.load('model/DungeonIsometric-withLights.gltf', function (gltf) {
   });
 
   console.log('GLTF light count:', lightCount);
+  console.log('Dungeon interactive objects:', interactive.map(obj => obj.name));
 
-    // Center the model so rotation and framing happen around the scene origin.
-    model.updateMatrixWorld(true);
-    const box = new THREE.Box3().setFromObject(model);
-    const center = box.getCenter(new THREE.Vector3());
+  model.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(model);
+  const center = box.getCenter(new THREE.Vector3());
 
-    model.position.x -= center.x;
-    model.position.z -= center.z;
-    model.position.y -= center.y;
-
+  model.position.x -= center.x;
+  model.position.z -= center.z;
+  model.position.y -= center.y;
 
   roomGroup.add(model);
 }, undefined, function (error) {
