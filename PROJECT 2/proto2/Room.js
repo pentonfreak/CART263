@@ -72,7 +72,8 @@ loader.load('Jordan_Model/Room.gltf', function (gltf) {
 
       const meshName = child.name.toLowerCase();
 
-      if (meshName.includes("chair")) {
+      // Couch — Artist Statement
+      if (meshName.includes("couch")) {
         child.userData = {
           title: "Artist Statement",
           body: `
@@ -83,7 +84,8 @@ loader.load('Jordan_Model/Room.gltf', function (gltf) {
         interactive.push(child);
       }
 
-      if (meshName.includes("desk") || meshName.includes("table")) {
+      // Table — Project Info
+      if (meshName.includes("table")) {
         child.userData = {
           title: "Project Info",
           body: `
@@ -95,11 +97,105 @@ loader.load('Jordan_Model/Room.gltf', function (gltf) {
         interactive.push(child);
       }
 
-      if (meshName.includes("lamp") || meshName.includes("bed")) {
+      // Lamp — Inspiration
+      if (meshName.includes("lamp")) {
         child.userData = {
           title: "Inspiration",
           body: `
             <p>The room is inspired by cozy digital spaces and miniature isometric dioramas.</p>
+          `
+        };
+        interactive.push(child);
+      }
+
+      // TV & Screen — About Me
+      if (meshName === "tv" || meshName === "tv.screen" || meshName === "screen") {
+        child.userData = {
+          title: "About Me",
+          body: `
+            <p><strong>Name:</strong> Anton McMilan</p>
+            <p><strong>Program:</strong> Computation Arts</p>
+            <p><strong>Focus:</strong> Creative coding, 3D design, interactive web experiences</p>
+          `
+        };
+        interactive.push(child);
+      }
+
+      // GameCube / Controllers — Skills
+      if (meshName.includes("gamecube") || meshName.includes("controller")) {
+        child.userData = {
+          title: "Skills",
+          body: `
+            <p>• Three.js & WebGL</p>
+            <p>• HTML / CSS / JavaScript</p>
+            <p>• Blender to web workflow</p>
+            <p>• Interactive environment design</p>
+          `
+        };
+        interactive.push(child);
+      }
+
+      // Shelf — Collections
+      if (meshName.includes("shelf")) {
+        child.userData = {
+          title: "Collections",
+          body: `
+            <p>A shelf full of things that matter — books, memories, and favourite objects.</p>
+          `
+        };
+        interactive.push(child);
+      }
+
+      // Plant (pot / leaf / dirt) — Nature
+      if (meshName.includes("pot") || meshName.includes("leaf") || meshName.includes("dirt")) {
+        child.userData = {
+          title: "A Little Green",
+          body: `
+            <p>Even in digital spaces, a plant makes things feel alive.</p>
+          `
+        };
+        interactive.push(child);
+      }
+
+      // Shake cup / drink — Lifestyle
+      if (meshName.includes("shake_cup") || meshName.includes("cup")) {
+        child.userData = {
+          title: "Fuel",
+          body: `
+            <p>Every creative session runs on something. This one runs on shakes.</p>
+          `
+        };
+        interactive.push(child);
+      }
+
+      // Book — Reading
+      if (meshName.includes("book")) {
+        child.userData = {
+          title: "Reading List",
+          body: `
+            <p>Books on design, fiction, and the space between the two.</p>
+          `
+        };
+        interactive.push(child);
+      }
+
+      // Trash can — Concept
+      if (meshName.includes("trash")) {
+        child.userData = {
+          title: "The Process",
+          body: `
+            <p>Not every idea makes it. The trash can is part of the workflow too.</p>
+          `
+        };
+        interactive.push(child);
+      }
+
+      // Window — Outside World
+      if (meshName === "window" || meshName.includes("frameforwindow")) {
+        child.userData = {
+          title: "The Outside",
+          body: `
+            <p>Sometimes the best ideas come from looking out the window.</p>
           `
         };
         interactive.push(child);
@@ -184,9 +280,9 @@ function opentPanel(title, body) {
 
 
 
-// closePanel.addEventListener('click', () => {
-//     panel.classList.add('hidden');
-// });
+closePanel.addEventListener('click', () => {
+    panel.classList.add('hidden');
+});
 window.requestAnimationFrame(animate);
 
 // Animate

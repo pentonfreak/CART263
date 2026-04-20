@@ -110,14 +110,25 @@ loader.load('model/DungeonIsometric-withLights.gltf', function (gltf) {
 
   let lightCount = 0;
 
+  // Track which mesh types have already been registered to avoid flooding the interactive list
+  let cylinderRegistered = false;
+  let cubeRegistered = false;
+  let circleRegistered = false;
+  let planeRegistered = false;
+
   model.traverse(function (child) {
     if (child.isMesh) {
+      console.log('Mesh name:', child.name);
       child.castShadow = true;
       child.receiveShadow = true;
 
       const meshName = child.name.toLowerCase();
 
-      if (meshName.includes("barrel")) {
+      // Cylinders — barrels / torches in the dungeon
+      if (meshName.startsWith("cylinder") && !cylinderRegistered) {
+        cylinderRegistered = true;
+      }
+      if (meshName.startsWith("cylinder")) {
         child.userData = {
           title: "About Me",
           body: `
@@ -130,11 +141,26 @@ loader.load('model/DungeonIsometric-withLights.gltf', function (gltf) {
         interactive.push(child);
       }
 
-      if (meshName.includes("chest")) {
+      // Cube.006 — About Me
+      if (meshName === "cube.006") {
+        child.userData = {
+          title: "About Me",
+          body: `
+            <p><strong>Name:</strong> Anton McMilan</p>
+            <p><strong>Program:</strong> Computation Arts</p>
+            <p><strong>Focus:</strong> Creative coding, 3D design, interactive web experiences</p>
+            <p><strong>Project:</strong> Project Secundus explores two contrasting isometric worlds: a dungeon and a room.</p>
+          `
+        };
+        interactive.push(child);
+      }
+
+      // Cube.003 — Skills
+      else if (meshName === "cube.003") {
         child.userData = {
           title: "Skills",
           body: `
-            <p>• Three.js</p>
+            <p>• Three.js & WebGL</p>
             <p>• HTML / CSS / JavaScript</p>
             <p>• Blender to web workflow</p>
             <p>• Interactive environment design</p>
@@ -143,12 +169,25 @@ loader.load('model/DungeonIsometric-withLights.gltf', function (gltf) {
         interactive.push(child);
       }
 
-      if (meshName.includes("table") || meshName.includes("crate")) {
+      // Other cubes — Concept
+      else if (meshName.startsWith("cube")) {
         child.userData = {
           title: "Concept",
           body: `
             <p>This project contrasts comfort and darkness through two isometric environments.</p>
-            <p>The interaction is intentionally simple: click to discover, drag to inspect, and toggle to shift worlds.</p>
+            <p>The interaction is intentionally simple: click to discover, drag to explore, and toggle to shift worlds.</p>
+          `
+        };
+        interactive.push(child);
+      }
+
+      // Plane.019 — one wall
+      if (meshName === "plane.019") {
+        child.userData = {
+          title: "The Dungeon",
+          body: `
+            <p>A dark isometric dungeon built in Blender and rendered in Three.js.</p>
+            <p>Every stone wall and shadow is part of the mood — isolation, mystery, and discovery.</p>
           `
         };
         interactive.push(child);
@@ -196,6 +235,7 @@ window.addEventListener("click", () => {
 
     if (hits.length > 0) {
         const obj = hits[0].object;
+        console.log('Clicked mesh:', obj.name);
         opentPanel(obj.userData.title, obj.userData.body);
     }
 });
@@ -228,20 +268,20 @@ window.addEventListener("pointermove", (event) => {
 });
 
 //Panel
-// const panel = document.getElementById('panel');
-// const panelTitle = document.getElementById('panelTitle');
-// const panelBody = document.getElementById('panelBody');
-// const closePanel = document.getElementById('closePanel');
+const panel = document.getElementById('panel');
+const panelTitle = document.getElementById('panelTitle');
+const panelBody = document.getElementById('panelBody');
+const closePanel = document.getElementById('closePanel');
 
-// function opentPanel(title, body) {
-//     panelTitle.textContent = title;
-//     panelBody.innerHTML = body;
-//     panel.classList.remove('hidden');
-// }
+function opentPanel(title, body) {
+    panelTitle.textContent = title;
+    panelBody.innerHTML = body;
+    panel.classList.remove('hidden');
+}
 
-// closePanel.addEventListener('click', () => {
-//     panel.classList.add('hidden');
-// });
+closePanel.addEventListener('click', () => {
+    panel.classList.add('hidden');
+});
 
 
 // Animate
