@@ -69,6 +69,12 @@ canvas {
   top: -50px;
 }
 
+/* Switch header copy to navy in room scene */
+body[data-view="room"] #siteTitle h1,
+body[data-view="room"] #siteSub .paragraph {
+  color: rgb(132, 134, 255);
+}
+
 
 /* Toggle Button */
 .toggle-bar {
