@@ -7,7 +7,7 @@ function runDungeon() {
 const scene = new THREE.Scene();
 
 // Camera setup
-const frustumSize = 10;
+let frustumSize = 10;
 const aspect = window.innerWidth / window.innerHeight;
 
 const camera = new THREE.OrthographicCamera(
@@ -28,6 +28,10 @@ const dungeonCanvas = document.getElementById("dungeonCanvas");
 const roomCanvas = document.getElementById("threeCanvas");
 const toggleBtn = document.getElementById("toggleViewBtn");
 const toggleCircle = document.querySelector(".toggle-circle");
+
+function isDungeonActive() {
+  return document.body.dataset.view === "dungeon";
+}
 
 function showDungeon() {
   dungeonCanvas.style.display = "block";
@@ -109,6 +113,7 @@ loader.load('model/DungeonIsometric-withLights.gltf', function (gltf) {
   }
 
   let lightCount = 0;
+  const meshNames = new Set();
 
   // Track which mesh types have already been registered to avoid flooding the interactive list
   let cylinderRegistered = false;
@@ -118,16 +123,15 @@ loader.load('model/DungeonIsometric-withLights.gltf', function (gltf) {
 
   model.traverse(function (child) {
     if (child.isMesh) {
+      meshNames.add(child.name);
       console.log('Mesh name:', child.name);
+
       child.castShadow = true;
       child.receiveShadow = true;
 
       const meshName = child.name.toLowerCase();
 
-      // Cylinders — barrels / torches in the dungeon
-      if (meshName.startsWith("cylinder") && !cylinderRegistered) {
-        cylinderRegistered = true;
-      }
+      // Cylinders — About Me - register for every cylinder mesh
       if (meshName.startsWith("cylinder")) {
         child.userData = {
           title: "About Me",
@@ -141,22 +145,8 @@ loader.load('model/DungeonIsometric-withLights.gltf', function (gltf) {
         interactive.push(child);
       }
 
-      // Cube.006 — About Me
-      if (meshName === "cube.006") {
-        child.userData = {
-          title: "About Me",
-          body: `
-            <p><strong>Name:</strong> Anton McMilan</p>
-            <p><strong>Program:</strong> Computation Arts</p>
-            <p><strong>Focus:</strong> Creative coding, 3D design, interactive web experiences</p>
-            <p><strong>Project:</strong> Project Secundus explores two contrasting isometric worlds: a dungeon and a room.</p>
-          `
-        };
-        interactive.push(child);
-      }
-
-      // Cube.003 — Skills
-      else if (meshName === "cube.003") {
+      // Cube — Skills - register for every cube mesh
+      else if (meshName.startsWith ("cube")) {
         child.userData = {
           title: "Skills",
           body: `
@@ -164,15 +154,16 @@ loader.load('model/DungeonIsometric-withLights.gltf', function (gltf) {
             <p>• HTML / CSS / JavaScript</p>
             <p>• Blender to web workflow</p>
             <p>• Interactive environment design</p>
+            <p>• Photomanipulation</p>
           `
         };
         interactive.push(child);
       }
 
-      // Other cubes — Concept
-      else if (meshName.startsWith("cube")) {
+      // Circle — Concept - register for every circle mesh
+      else if (meshName.startsWith("circle")) {
         child.userData = {
-          title: "Concept",
+          title: "Idea & Concept",
           body: `
             <p>This project contrasts comfort and darkness through two isometric environments.</p>
             <p>The interaction is intentionally simple: click to discover, drag to explore, and toggle to shift worlds.</p>
@@ -181,17 +172,16 @@ loader.load('model/DungeonIsometric-withLights.gltf', function (gltf) {
         interactive.push(child);
       }
 
-      // Plane.019 — one wall
-      if (meshName === "plane.019") {
+      // Plane — The Dungeon - register for every plane mesh
+      else if (meshName.startsWith("plane")) {
         child.userData = {
           title: "The Dungeon",
           body: `
-            <p>A dark isometric dungeon built in Blender and rendered in Three.js.</p>
-            <p>Every stone wall and shadow is part of the mood — isolation, mystery, and discovery.</p>
+            <p>The dungeon represents the unknown, filled with shadows and secrets.</p>
+            <p>It invites exploration and discovery, embodying the mysterious aspects of the project.</p>
           `
         };
         interactive.push(child);
-      }
     }
 
     if (child.isLight) {
@@ -201,10 +191,12 @@ loader.load('model/DungeonIsometric-withLights.gltf', function (gltf) {
         child.castShadow = true;
       }
     }
-  });
+    }
+    });
 
-  console.log('GLTF light count:', lightCount);
-  console.log('Dungeon interactive objects:', interactive.map(obj => obj.name));
+  console.log('Unique mesh names:', [...meshNames]);
+
+
 
   model.updateMatrixWorld(true);
   const box = new THREE.Box3().setFromObject(model);
@@ -223,22 +215,46 @@ loader.load('model/DungeonIsometric-withLights.gltf', function (gltf) {
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-window.addEventListener("pointermove", (event) => {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+renderer.domElement.addEventListener("pointermove", (event) => {
+  if (!isDungeonActive()) return;
+  const rect = renderer.domElement.getBoundingClientRect();
+  mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 });
 
 
-window.addEventListener("click", () => {
+renderer.domElement.addEventListener("click", () => {
+  if (!isDungeonActive()) return;
     raycaster.setFromCamera(mouse, camera);
     const hits = raycaster.intersectObjects(interactive, true);
 
     if (hits.length > 0) {
         const obj = hits[0].object;
-        console.log('Clicked mesh:', obj.name);
         opentPanel(obj.userData.title, obj.userData.body);
     }
 });
+
+    // Zoom controls
+    const zoomSpeed = 0.5;
+    const minZoom = 2;
+    const maxZoom = 20;
+
+    function updateZoom(size) {
+      frustumSize = size;
+      const aspect = window.innerWidth / window.innerHeight;
+      camera.left = (frustumSize * aspect) / -2;
+      camera.right = (frustumSize * aspect) / 2;
+      camera.top = frustumSize / 2;
+      camera.bottom = frustumSize / -2;
+      camera.updateProjectionMatrix();
+    }
+
+    renderer.domElement.addEventListener("wheel", (event) => {
+      if (!isDungeonActive()) return;
+      event.preventDefault();
+      const nextSize = frustumSize + (event.deltaY > 0 ? zoomSpeed : -zoomSpeed);
+      updateZoom(THREE.MathUtils.clamp(nextSize, minZoom, maxZoom));
+    }, { passive: false });
 
 
 // Limited drag rotation
@@ -249,6 +265,7 @@ let currentRotationY = 0;
 const maxRotation = 0.35
 
 renderer.domElement.addEventListener("pointerdown", (event) => {
+  if (!isDungeonActive()) return;
     dragging = true;
     dragX = event.clientX;
 });
@@ -258,7 +275,7 @@ window.addEventListener("pointerup", () => {
 });
 
 window.addEventListener("pointermove", (event) => {
-    if (!dragging) return;
+  if (!dragging || !isDungeonActive()) return;
 
     const deltaX = event.clientX - dragX;
     dragX = event.clientX;
@@ -298,12 +315,7 @@ animate();
 
 //Resize
 function resizeCamera() {
-    const aspect = window.innerWidth / window.innerHeight;
-    camera.left = (frustumSize * aspect) / -2;
-    camera.right = (frustumSize * aspect) / 2;
-    camera.top = frustumSize / 2;
-    camera.bottom = frustumSize / -2;
-    camera.updateProjectionMatrix();
+  updateZoom(frustumSize);
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 

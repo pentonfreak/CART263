@@ -10,6 +10,9 @@ const scene = new THREE.Scene();
 
 
 const canvas = document.getElementById('threeCanvas');
+function isRoomActive() {
+  return document.body.dataset.view === "room";
+}
 
 // Camera setup
 let frustumSize = 10;
@@ -68,9 +71,9 @@ loader.load('Jordan_Model/RoomFinal.gltf', function (gltf) {
 // Enable Shadows
     model.traverse(function (child) {
         if (child.isMesh) {
+          console.log('Mesh found:', child.name);
             child.castShadow = true;
             child.receiveShadow = true;
-            console.log('Mesh found:', child.name);
 
             // Apply video texture to TVSCREEN
             if (child.name && child.name.trim() === 'TVSCREEN') {
@@ -146,11 +149,11 @@ loader.load('Jordan_Model/RoomFinal.gltf', function (gltf) {
       }
 
       // TV & Screen — About Me
-      if (meshName === "tv" || meshName === "tv.screen" || meshName === "screen") {
+      if (meshName.startsWith("tv") || meshName.startsWith("tvscreen") || meshName.startsWith("screen")) {
         child.userData = {
           title: "About Me",
           body: `
-            <p><strong>Name:</strong> Anton McMilan</p>
+            <p><strong>Name:</strong> Dan Basso</p>
             <p><strong>Program:</strong> Computation Arts</p>
             <p><strong>Focus:</strong> Creative coding, 3D design, interactive web experiences</p>
           `
@@ -159,21 +162,21 @@ loader.load('Jordan_Model/RoomFinal.gltf', function (gltf) {
       }
 
       // GameCube / Controllers — Skills
-      if (meshName.includes("gamecube") || meshName.includes("controller")) {
+      if (meshName.startsWith("cube018")) {
         child.userData = {
           title: "Skills",
           body: `
             <p>• Three.js & WebGL</p>
             <p>• HTML / CSS / JavaScript</p>
             <p>• Blender to web workflow</p>
-            <p>• Interactive environment design</p>
+            <p>• Interactive media arts</p>
           `
         };
         interactive.push(child);
       }
 
       // Shelf — Collections
-      if (meshName.includes("shelf")) {
+      if (meshName.startsWith("shelf")) {
         child.userData = {
           title: "Collections",
           body: `
@@ -184,7 +187,7 @@ loader.load('Jordan_Model/RoomFinal.gltf', function (gltf) {
       }
 
       // Plant (pot / leaf / dirt) — Nature
-      if (meshName.includes("pot") || meshName.includes("leaf") || meshName.includes("dirt")) {
+      if (meshName.startsWith("pot") || meshName.startsWith("leaf") || meshName.startsWith("dirt")) {
         child.userData = {
           title: "A Little Green",
           body: `
@@ -195,7 +198,7 @@ loader.load('Jordan_Model/RoomFinal.gltf', function (gltf) {
       }
 
       // Shake cup / drink — Lifestyle
-      if (meshName.includes("shake_cup") || meshName.includes("cup")) {
+      if (meshName.startsWith("cylinder005")) {
         child.userData = {
           title: "Fuel",
           body: `
@@ -206,29 +209,22 @@ loader.load('Jordan_Model/RoomFinal.gltf', function (gltf) {
       }
 
       // Book — Reading
-      if (meshName.includes("book")) {
+      if (meshName.startsWith("cube030")) {
         child.userData = {
           title: "Reading List",
           body: `
-            <p>Books on design, fiction, and the space between the two.</p>
+            <p>Books that inspire creativity and exploration.</p>
+            <p>• "The Art of Game Design" by Jesse Schell</p>
+            <p>• "Game Programming Patterns" by Robert Nystrom</p>
+            <p>• "Chainsaw Man" by Tatsuki Fujimoto</p>
           `
         };
         interactive.push(child);
       }
 
-      // Trash can — Concept
-      if (meshName.includes("trash")) {
-        child.userData = {
-          title: "The Process",
-          body: `
-            <p>Not every idea makes it. The trash can is part of the workflow too.</p>
-          `
-        };
-        interactive.push(child);
-      }
 
       // Window — Outside World
-      if (meshName === "window" || meshName.includes("frameforwindow")) {
+      if (meshName.startsWith("window") || meshName.includes("frameforwindow")) {
         child.userData = {
           title: "The Outside",
           body: `
@@ -258,13 +254,16 @@ loader.load('Jordan_Model/RoomFinal.gltf', function (gltf) {
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-window.addEventListener("pointermove", (event) => {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+renderer.domElement.addEventListener("pointermove", (event) => {
+  if (!isRoomActive()) return;
+  const rect = renderer.domElement.getBoundingClientRect();
+  mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 });
 
 
-window.addEventListener("click", () => {
+renderer.domElement.addEventListener("click", () => {
+  if (!isRoomActive()) return;
     raycaster.setFromCamera(mouse, camera);
     const hits = raycaster.intersectObjects(interactive, true);
 
@@ -282,16 +281,6 @@ const maxZoom = 20;
 const buttonIn = document.getElementById('buttonIn');
 const buttonOut = document.getElementById('buttonOut');
 
-buttonIn.addEventListener('click', () => {
-    const newSize = Math.max(minZoom, frustumSize - zoomSpeed);
-    updateZoom(newSize);
-});
-
-buttonOut.addEventListener('click', () => {
-    const newSize = Math.min(maxZoom, frustumSize + zoomSpeed);
-    updateZoom(newSize);
-});
-
 function updateZoom(size) {
     frustumSize = size;
     const aspect = window.innerWidth / window.innerHeight;
@@ -301,6 +290,14 @@ function updateZoom(size) {
     camera.bottom = frustumSize / -2;
     camera.updateProjectionMatrix();
 }
+
+renderer.domElement.addEventListener("wheel", (event) => {
+  if (!isRoomActive()) return;
+  event.preventDefault();
+  const nextSize = frustumSize + (event.deltaY > 0 ? zoomSpeed : -zoomSpeed);
+  updateZoom(THREE.MathUtils.clamp(nextSize, minZoom, maxZoom));
+}, { passive: false });
+
 
 // Limited drag rotation
 let dragging = false;
@@ -320,6 +317,7 @@ const maxRotation = {
 
 
 renderer.domElement.addEventListener("pointerdown", (event) => {
+  if (!isRoomActive()) return;
     dragging = true;
     dragX = event.clientX;
     dragY = event.clientY;
@@ -330,7 +328,7 @@ window.addEventListener("pointerup", () => {
 });
 
 window.addEventListener("pointermove", (event) => {
-    if (!dragging) return;
+  if (!dragging || !isRoomActive()) return;
 
     const deltaX = event.clientX - dragX;
     const deltaY = event.clientY - dragY;
