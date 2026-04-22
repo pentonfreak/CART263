@@ -12,11 +12,11 @@ const scene = new THREE.Scene();
 const canvas = document.getElementById('threeCanvas');
 
 // Camera setup
-const frustumSize = 10;
+let frustumSize = 10;
 const aspect = window.innerWidth / window.innerHeight;
 
 const camera = new THREE.OrthographicCamera(
-    (frustumSize * aspect) / -2,
+      (frustumSize * aspect) / -2,
     (frustumSize * aspect) / 2,
     frustumSize / 2,
     frustumSize / -2,
@@ -62,8 +62,45 @@ loader.setDRACOLoader(dracoLoader);
 /*
  * (PUT YOUR MODEL HERE)
  */
-loader.load('Jordan_Model/Room.gltf', function (gltf) {
+loader.load('Jordan_Model/RoomFinal.gltf', function (gltf) {
   const model = gltf.scene;
+
+// Enable Shadows
+    model.traverse(function (child) {
+        if (child.isMesh) {
+            child.castShadow = true;
+            child.receiveShadow = true;
+            console.log('Mesh found:', child.name);
+
+            // Apply video texture to TVSCREEN
+            if (child.name && child.name.trim() === 'TVSCREEN') {
+                console.log('TVSCREEN found, setting up video texture');
+                const video = document.getElementById('videoTexture');
+
+                const videoTexture = new THREE.VideoTexture(video);
+                videoTexture.minFilter = THREE.LinearFilter;
+                videoTexture.magFilter = THREE.LinearFilter;
+                videoTexture.colorSpace = THREE.SRGBColorSpace;
+                videoTexture.generateMipmaps = false;
+                videoTexture.flipY = false;
+
+                child.material = new THREE.MeshBasicMaterial({
+                    map: videoTexture,
+                    side: THREE.DoubleSide
+                });
+
+                // Wait for video to be ready before playing
+                video.addEventListener('canplay', () => {
+                    console.log('Video can play, attempting to play');
+                    video.play().catch(e => console.warn('Video play failed:', e));
+                });
+                video.addEventListener('error', (e) => {
+                    console.error('Video load error:', e);
+                });
+                video.load();
+            }
+        }
+    });
 
   model.traverse(function (child) {
     if (child.isMesh) {
@@ -237,18 +274,55 @@ window.addEventListener("click", () => {
     }
 });
 
+// Zoom controls
+const zoomSpeed = 0.5;
+const minZoom = 2;
+const maxZoom = 20;
+
+const buttonIn = document.getElementById('buttonIn');
+const buttonOut = document.getElementById('buttonOut');
+
+buttonIn.addEventListener('click', () => {
+    const newSize = Math.max(minZoom, frustumSize - zoomSpeed);
+    updateZoom(newSize);
+});
+
+buttonOut.addEventListener('click', () => {
+    const newSize = Math.min(maxZoom, frustumSize + zoomSpeed);
+    updateZoom(newSize);
+});
+
+function updateZoom(size) {
+    frustumSize = size;
+    const aspect = window.innerWidth / window.innerHeight;
+    camera.left = (frustumSize * aspect) / -2;
+    camera.right = (frustumSize * aspect) / 2;
+    camera.top = frustumSize / 2;
+    camera.bottom = frustumSize / -2;
+    camera.updateProjectionMatrix();
+}
 
 // Limited drag rotation
 let dragging = false;
-let dragX = 0
+let dragX = 0;
+let dragY = 0;
+let targetRotationX = 0;
 let targetRotationY = 0;
+let targetRotationZ = 0;
+let currentRotationX = 0;
 let currentRotationY = 0;
-const maxRotation = 0.35
+let currentRotationZ = 0;
+const maxRotation = {
+    x: 0.35,
+    y: 0.35,
+    z: 0.35
+};
 
 
 renderer.domElement.addEventListener("pointerdown", (event) => {
     dragging = true;
     dragX = event.clientX;
+    dragY = event.clientY;
 });
 
 window.addEventListener("pointerup", () => {
@@ -259,10 +333,24 @@ window.addEventListener("pointermove", (event) => {
     if (!dragging) return;
 
     const deltaX = event.clientX - dragX;
+    const deltaY = event.clientY - dragY;
     dragX = event.clientX;
+     dragY = event.clientY;
+    
 
-    targetRotationY += deltaX * 0.005;
-    targetRotationY = THREE.MathUtils.clamp(targetRotationY, -maxRotation, maxRotation);
+      // X-axis rotation (vertical drag)
+    targetRotationX += deltaY * 0.005;
+    targetRotationX = THREE.MathUtils.clamp(targetRotationX, -maxRotation.x, maxRotation.x);
+
+    // Y-axis rotation (horizontal drag)
+   targetRotationY += deltaX * 0.005;
+   targetRotationY = THREE.MathUtils.clamp(targetRotationY, -maxRotation.y, maxRotation.y);
+
+    // Z-axis rotation (shift + horizontal drag)
+    if (event.shiftKey) {
+        targetRotationZ += deltaX * 0.005;
+        targetRotationZ = THREE.MathUtils.clamp(targetRotationZ, -maxRotation.z, maxRotation.z);
+    }
 });
 
 
@@ -290,8 +378,12 @@ function animate() {
 
     requestAnimationFrame(animate);
 
+    currentRotationX = THREE.MathUtils.lerp(currentRotationX, targetRotationX, 0.1);
     currentRotationY = THREE.MathUtils.lerp(currentRotationY, targetRotationY, 0.1);
+      currentRotationZ = THREE.MathUtils.lerp(currentRotationZ, targetRotationZ, 0.1);
+    roomGroup.rotation.x += (currentRotationX - roomGroup.rotation.x) * 0.1;
     roomGroup.rotation.y += (currentRotationY - roomGroup.rotation.y) * 0.1;
+    roomGroup.rotation.z += (currentRotationZ - roomGroup.rotation.z) * 0.1;
 
     renderer.render(scene, camera);
 }

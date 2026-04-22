@@ -29,6 +29,7 @@ body {
   overflow: hidden;
 }
 
+
 h1, h2, h3, h4, span {
   color: rgb(240, 240, 240);
   font-family: "Raleway", sans-serif;
@@ -199,4 +200,39 @@ body[data-view="room"] #siteSub .paragraph {
 #panelBody {
   color: rgba(255,255,255,0.85);
   line-height: 1.5;
+}
+
+.Buttonholder {
+  position: absolute;
+  bottom: 24px;
+  display: flex;
+  gap: 12px;
+}
+
+.button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+
+  /* Glassmorphism Effect */
+  background: rgba(255, 255, 255, 0.1);
+  /* Semi-transparent */
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  /* Light border */
+  backdrop-filter: blur(10px);
+  /* Blur behind element */
+  -webkit-backdrop-filter: blur(10px);
+  /* Safari support */
+
+  /* Shadow & Style */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+
+  /* Centering the icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
 }
