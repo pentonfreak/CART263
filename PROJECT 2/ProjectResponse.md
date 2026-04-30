@@ -1,0 +1,17 @@
+Huynh Bao Khuong, Nguyen
+ID: 40325413
+CART263 - AA
+Professor: Sabine Rosenberg
+
+Project Response II
+
+Through many “playtests” and experiences, the three projects that caught my eyes are Artemis II, Word Nerd and Interactive Bike Garage. Each of them explores interactivity in unique ways that show the creativity and the style of developers.
+https://chloe-jpeg.github.io/CART263/project2/
+https://jakehayduk.github.io/cart263/project-2/
+https://emilebedard.github.io/cart263/Projects/project2/interactive_bike_garage_ii/index.html
+
+Artemis II by Chloe shows how simple interaction system can create very different spatial experiences. Chloe’s project feels the most minimal and concept driven, which makes the only interaction feel intentional rather than excessive. Inspired by the real-life Artemis II mission, by NASA, which plans to send astronauts around the moon. This project translates that idea into a digital environment where movement and perspective become the core of experiences. What I found most interesting is the HUD: it provides mission-like information and includes a launch button that feels polished and immersive. The hover interaction on the button is particularly effective; it gives subtle sci-fi feedback that prepares the user for action. When the button is pressed, the rocket begins its mission, and the camera follows it in motion. From the coding perspective, this likely involves “camera.lookAt” that track the rocket.
+
+Word Nerd by Jake offers a different type of interaction, focusing more on play and system design. The project is another variant of Wordle, but what makes it interesting is its multiplayer aspect. Players can test their vocabulary while also competing or interacting with others, which adds a social layer to an otherwise simple word game. This shifts the experience from a solitary puzzle into something more dynamic and engaging. From a coding perspective, the project likely involves randomization of words, validating words, a whole dictionary and updating results in real time between players. I think the developer uses conditional logic, input handling and some form of player’s synchronization. The interesting part of this project is how the system creates a feedback loop: each guess immediately produces a response, encouraging players to refine their vocabulary.
+
+Finally, Interactive Bike Garage by Emile is the most immersive and environment-driven project. It simulates the physical space of a bike garage, and what really stands out is how carefully the environment is constructed. Even though there are only a couple of interactions, the space itself carries much experience. The layout of the garage feels believable, with objects placed in a way that suggests real usage rather than just decoration. This gives the user a sense of being inside a functional space rather than just viewing a scene. In addition, the 3D models themselves are also a key strength. The bike and surrounding objects appear detailed enough to be recognizable and believable, but not overly complex, which keeps performance smooth. The lack of texture makes the users curious about how would the scene look when it is texturized. The lighting plays a huge role in this immersion. It is just sunlight through the window and yet, it reveals the whole scene with soft shadows, limited brightness and a focused light source. From a coding perspective, this likely involves directional or point lights with carefully adjusted intensity and shadows, which enhances the overall atmosphere without overwhelming the scene.
